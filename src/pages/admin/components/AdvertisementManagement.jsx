@@ -2,12 +2,48 @@ import React, { useState } from "react";
 import { Container, Row, Col, Table, Button, Form, Modal } from "react-bootstrap";
 import { auth } from "../../../firebase";
 
+const AlertModal = ({ show, onHide, title, message, variant, onConfirm }) => {
+  return (
+    <Modal show={show} onHide={onHide} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>{title}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p className={variant === "success" ? "text-success" : "text-danger"}>{message}</p>
+      </Modal.Body>
+      <Modal.Footer>
+        {onConfirm ? (
+          <>
+            <Button variant="secondary" onClick={onHide}>
+              Cancel
+            </Button>
+            <Button variant={variant === "danger" ? "danger" : "primary"} onClick={onConfirm}>
+              OK
+            </Button>
+          </>
+        ) : (
+          <Button variant="secondary" onClick={onHide}>
+            Close
+          </Button>
+        )}
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
 const AdvertisementManagement = ({ advertisements, setAdvertisements, fetchAdvertisements, API_URL }) => {
   const [showModal, setShowModal] = useState(false);
   const [currentAd, setCurrentAd] = useState(null);
   const [formData, setFormData] = useState({ title: "", image: "", video: "" });
   const [imageFile, setImageFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
+  const [alertModal, setAlertModal] = useState({
+    show: false,
+    title: "",
+    message: "",
+    variant: "success",
+    onConfirm: null,
+  });
 
   const handleShowModal = (ad = null) => {
     setCurrentAd(ad);
@@ -18,6 +54,14 @@ const AdvertisementManagement = ({ advertisements, setAdvertisements, fetchAdver
   };
 
   const handleCloseModal = () => setShowModal(false);
+
+  const handleCloseAlertModal = () => {
+    setAlertModal({ show: false, title: "", message: "", variant: "success", onConfirm: null });
+  };
+
+  const showAlertModal = (title, message, variant = "success", onConfirm = null) => {
+    setAlertModal({ show: true, title, message, variant, onConfirm });
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,32 +108,44 @@ const AdvertisementManagement = ({ advertisements, setAdvertisements, fetchAdver
 
       await fetchAdvertisements();
       handleCloseModal();
+      showAlertModal("Success", `Advertisement ${currentAd ? "updated" : "added"} successfully!`, "success");
     } catch (error) {
       console.error("Failed to save advertisement:", error.message);
-      alert(`Failed to save advertisement: ${error.message}`);
+      showAlertModal("Error", `Failed to save advertisement: ${error.message}`, "danger");
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this advertisement?")) {
-      try {
-        const idToken = await auth.currentUser.getIdToken(true);
-        const response = await fetch(`${API_URL}/advertisements/${id}`, {
-          method: "DELETE",
-          headers: { Authorization: `Bearer ${idToken}` },
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.error || "Unknown error"}`);
-        }
-
-        await fetchAdvertisements();
-      } catch (error) {
-        console.error("Failed to delete advertisement:", error.message);
-        alert(`Failed to delete advertisement: ${error.message}`);
-      }
+    if (!auth.currentUser) {
+      showAlertModal("Authentication Error", "Please log in to delete an advertisement.", "danger");
+      return;
     }
+    showAlertModal(
+      "Confirm Delete",
+      "Are you sure you want to delete this advertisement?",
+      "danger",
+      async () => {
+        try {
+          const idToken = await auth.currentUser.getIdToken(true);
+          const response = await fetch(`${API_URL}/advertisements/${id}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${idToken}` },
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.error || "Unknown error"}`);
+          }
+
+          await fetchAdvertisements();
+          showAlertModal("Success", "Advertisement deleted successfully!", "success");
+        } catch (error) {
+          console.error("Failed to delete advertisement:", error.message);
+          showAlertModal("Error", `Failed to delete advertisement: ${error.message}`, "danger");
+        }
+        handleCloseAlertModal();
+      }
+    );
   };
 
   return (
@@ -134,7 +190,7 @@ const AdvertisementManagement = ({ advertisements, setAdvertisements, fetchAdver
                 <Button variant="info" className="me-2" onClick={() => handleShowModal(ad)}>
                   Edit
                 </Button>
-                <Button variant="danger" onClick={() => handleDelete(ad.id)}>
+                <Button variant="secondary" onClick={() => handleDelete(ad.id)}>
                   Delete
                 </Button>
               </td>
@@ -189,6 +245,14 @@ const AdvertisementManagement = ({ advertisements, setAdvertisements, fetchAdver
           </Form>
         </Modal.Body>
       </Modal>
+      <AlertModal
+        show={alertModal.show}
+        onHide={handleCloseAlertModal}
+        title={alertModal.title}
+        message={alertModal.message}
+        variant={alertModal.variant}
+        onConfirm={alertModal.onConfirm}
+      />
     </Container>
   );
 };

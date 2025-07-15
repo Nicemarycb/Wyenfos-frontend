@@ -1,41 +1,18 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Button, Form, Alert, Modal } from "react-bootstrap";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Briefcase, People, Star } from "react-bootstrap-icons";
 
-// Define shouldForwardProp to filter out bgLight
-const shouldForwardProp = (prop) => prop !== "bgLight";
-
-const CustomSection = styled.div.withConfig({ shouldForwardProp })`
+// Simplified CustomSection to reduce reflows
+const CustomSection = styled.div`
   background: ${(props) => (props.bgLight ? "#f8f9fa" : "#ffffff")};
-  border: 2px solid transparent;
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.6s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 
   &:hover {
-    border-color: #0d6efd;
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #0d6efd, #6c757d);
-    z-index: -1;
-    border-radius: 1rem;
-    opacity: 0;
-    transition: opacity 0.6s ease-in-out;
-  }
-
-  &:hover::before {
-    opacity: 1;
+    transform: translateY(-5px);
   }
 `;
 
@@ -62,61 +39,61 @@ const internshipRoles = [
     title: "Software Development Intern",
     description: "Work on full-stack development projects using React, Node.js, and Firebase.",
     skills: "JavaScript, React, Node.js, Git",
-    duration: "3 months",
+    duration: "6 month Internship and 6 month Training",
     responsibilities: [
       "Develop and maintain web applications.",
       "Collaborate with the team on project requirements.",
       "Write clean, efficient, and reusable code.",
     ],
-    notes: "Prior experience with version control (Git) is preferred.",
+   notes: "We Provide One Year Work Experience Certificate.",
   },
   {
     title: "UI/UX Design Intern",
     description: "Design user interfaces and prototypes for web and mobile applications.",
     skills: "Figma, Adobe XD, User Research",
-    duration: "3 months",
+    duration: "6 month Internship and 6 month Training",
     responsibilities: [
       "Create wireframes and prototypes using Figma or Adobe XD.",
       "Conduct user research and usability testing.",
       "Collaborate with developers to implement designs.",
     ],
-    notes: "A portfolio of previous design work is required.",
+   notes: "We Provide One Year Work Experience Certificate.",
   },
   {
-    title: "Graphic Designer",
+    title: "Graphic Designer Intern",
     description: "Create visually appealing graphics for marketing materials and digital platforms.",
     skills: "Adobe Photoshop, Illustrator, Graphic Design Principles",
-    duration: "3 months",
+    duration: "6 month Internship and 6 month Training",
     responsibilities: [
       "Design logos, banners, and social media graphics.",
       "Collaborate with the marketing team on branding projects.",
       "Ensure designs align with brand guidelines.",
     ],
-    notes: "Proficiency in Adobe Creative Suite is essential.",
+   notes: "We Provide One Year Work Experience Certificate.",
   },
   {
-    title: "Mobile Application Development",
+    title: "Mobile Application Development Intern",
     description: "Develop and maintain mobile applications for Android and cross-platform environments.",
     skills: "Kotlin, Flutter, Android Studio",
-    duration: "3 months",
+    duration: "6 month Internship and 6 month Training",
     responsibilities: [
       "Build and test mobile apps using Kotlin or Flutter.",
       "Integrate APIs and ensure app performance.",
       "Work with UI/UX designers for a seamless user experience.",
     ],
-    notes: "Experience with mobile development frameworks is a plus.",
+   notes: "We Provide One Year Work Experience Certificate.",
   },
   {
-    title: "iOS Developer",
+    title: "iOS Developer Intern",
     description: "Develop and optimize iOS applications using Swift and Xcode.",
     skills: "Swift, Xcode, iOS SDK",
-    duration: "3 months",
+    duration: "6 month Internship and 6 month Training",
     responsibilities: [
       "Design and implement iOS app features.",
       "Debug and optimize app performance.",
       "Publish apps to the App Store.",
     ],
-    notes: "Familiarity with iOS development lifecycle is required.",
+    notes: "We Provide One Year Work Experience Certificate.",
   },
 ];
 
@@ -163,8 +140,8 @@ const InternshipApplication = () => {
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedRole(null);
+    setSelectedRole(null); // Clear selectedRole first
+    setShowModal(false); // Then hide modal
   };
 
   return (
@@ -221,7 +198,7 @@ const InternshipApplication = () => {
           )}
           {submitStatus === "error" && (
             <Alert variant="danger" className="mb-4">
-              Failed to submit application. Please try again. Check console for details.
+              Failed to submit application. Please try again.
             </Alert>
           )}
           <Form onSubmit={handleSubmit}>
@@ -269,7 +246,7 @@ const InternshipApplication = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows={5}
-                placeholder="Tell us about yourself and why you want to join Wyenfos."
+                placeholder="Tell us about yourself and why you want to join Wyenfos Infotech."
                 required
               />
             </Form.Group>
@@ -280,21 +257,27 @@ const InternshipApplication = () => {
         </CustomSection>
 
         {/* Modal for Role Details */}
-        <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal show={showModal} onHide={handleCloseModal} centered animation={false}>
           <Modal.Header closeButton>
-            <Modal.Title>{selectedRole?.title} Details</Modal.Title>
+            <Modal.Title>{selectedRole?.title || "Role Details"} Details</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p><strong>Description:</strong> {selectedRole?.description}</p>
-            <p><strong>Skills Required:</strong> {selectedRole?.skills}</p>
-            <p><strong>Duration:</strong> {selectedRole?.duration}</p>
-            <p><strong>Responsibilities:</strong></p>
-            <ul>
-              {selectedRole?.responsibilities?.map((resp, index) => (
-                <li key={index}>{resp}</li>
-              ))}
-            </ul>
-            <p><strong>Notes:</strong> {selectedRole?.notes}</p>
+            {selectedRole ? (
+              <>
+                <p><strong>Description:</strong> {selectedRole.description}</p>
+                <p><strong>Skills Required:</strong> {selectedRole.skills}</p>
+                <p><strong>Duration:</strong> {selectedRole.duration}</p>
+                <p><strong>Responsibilities:</strong></p>
+                <ul>
+                  {selectedRole.responsibilities.map((resp, index) => (
+                    <li key={index}>{resp}</li>
+                  ))}
+                </ul>
+                <p><strong>Notes:</strong> {selectedRole.notes}</p>
+              </>
+            ) : (
+              <p>No role selected.</p>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseModal} className="rounded-pill">

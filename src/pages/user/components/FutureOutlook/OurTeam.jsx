@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import styled from "styled-components";
@@ -8,7 +7,7 @@ const AnimatedSection = styled.div`
   transform: scale(0.5) translateY(50px);
   opacity: 0;
   animation: bounceIn 1.2s ease-out forwards;
-  animation-delay: ${props => props.index * 0.2}s;
+  animation-delay: ${(props) => props.index * 0.2}s;
   transition: transform 0.6s ease-in-out, scale 0.6s ease-in-out;
   background: linear-gradient(135deg, #ffffff, #e9ecef);
   border: 2px solid transparent;
@@ -59,7 +58,7 @@ const AnimatedSection = styled.div`
 
 // Styled component for non-animated section
 const CustomSection = styled.div`
-  background: ${props => (props.bgLight ? '#f8f9fa' : '#ffffff')};
+  background: ${(props) => (props.bgLight ? "#f8f9fa" : "#ffffff")};
   border: 2px solid transparent;
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -139,14 +138,18 @@ const OurTeam = ({ isPreview = false }) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-          throw new Error('Response is not JSON');
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error("Response is not JSON");
         }
         const data = await response.json();
-        setTeamMembers(data);
+        // Filter out members who are not "Currently Working"
+        const currentlyWorkingMembers = data.filter(
+          (member) => member.status === "Currently Working"
+        );
+        setTeamMembers(currentlyWorkingMembers); //
       } catch (error) {
-        console.error('Failed to fetch team:', error.message);
+        console.error("Failed to fetch team:", error.message);
         setTeamMembers([]);
       }
     };
@@ -158,9 +161,7 @@ const OurTeam = ({ isPreview = false }) => {
     return (
       <section className="py-5 bg-light" id="team">
         <Container>
-          <h1 className="h4 fw-bold text-center mb-5 text-dark">
-            Our Staff
-          </h1>
+          <h1 className="h4 fw-bold text-center mb-5 text-dark">Our Staff</h1>
           <Row className="justify-content-center">
             <Col md={8}>
               <AnimatedSection className="text-center" index={0}>
@@ -168,7 +169,9 @@ const OurTeam = ({ isPreview = false }) => {
                   Our Talented Professionals
                 </h4>
                 <p className="text-muted lead mb-4">
-                  Our Staff at Wyenfos Infotech combines expertise in software development, design, and mobile solutions to deliver innovative projects.
+                  Our Staff at Wyenfos Infotech combines expertise in software
+                  development, design, and mobile solutions to deliver
+                  innovative projects.
                 </p>
                 <Row className="g-3 mb-4">
                   {teamMembers.map((member, index) => (
@@ -188,7 +191,9 @@ const OurTeam = ({ isPreview = false }) => {
                           />
                         )}
                         <h6 className="fw-bold text-dark">{member.name}</h6>
-                        <p className="text-primary small fw-semibold">{member.role}</p>
+                        <p className="text-primary small fw-semibold">
+                          {member.role}
+                        </p>
                         <p className="text-muted small">
                           {member.skills && member.skills.length > 0
                             ? member.skills.join(", ")
@@ -232,7 +237,8 @@ const OurTeam = ({ isPreview = false }) => {
           Meet Our Expert Staff
         </h1>
         <p className="lead text-muted text-center mb-5">
-          At Wyenfos Infotech, our staff of skilled professionals drives innovation and excellence. Get to know the experts behind our success.
+          At Wyenfos Infotech, our staff of skilled professionals drives
+          innovation and excellence. Get to know the experts behind our success.
         </p>
         <Row className="g-4 mb-5">
           {teamMembers.map((member) => (
@@ -293,21 +299,26 @@ const OurTeam = ({ isPreview = false }) => {
           ))}
         </Row>
         <CustomSection bgLight className="p-5">
-          <h3 className="fw-bold text-center mb-4 text-dark">Our Team Culture</h3>
+          <h3 className="fw-bold text-center mb-4 text-dark">
+            Our Team Culture
+          </h3>
           <p className="text-muted text-center mb-4">
-            Collaboration, innovation, and growth define our team at Wyenfos. Here’s what makes us unique:
+            Collaboration, innovation, and growth define our team at Wyenfos.
+            Here’s what makes us unique:
           </p>
           <Row className="g-4">
             <Col md={4} className="text-center">
               <h5 className="fw-semibold text-primary">Collaboration</h5>
               <p className="text-muted">
-                We work as a cohesive unit, sharing ideas to deliver exceptional results.
+                We work as a cohesive unit, sharing ideas to deliver exceptional
+                results.
               </p>
             </Col>
             <Col md={4} className="text-center">
               <h5 className="fw-semibold text-primary">Innovation</h5>
               <p className="text-muted">
-                We embrace new technologies and creative solutions to stay ahead.
+                We embrace new technologies and creative solutions to stay
+                ahead.
               </p>
             </Col>
             <Col md={4} className="text-center">

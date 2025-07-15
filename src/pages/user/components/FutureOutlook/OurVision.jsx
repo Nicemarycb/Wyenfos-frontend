@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Image, Card, Button } from "react-bootstrap";
 import styled from "styled-components";
-import visionImage from "../../../../assets/bulb.webp"; 
+import visionImage from "../../../../assets/bulb.webp";
 
 // Styled component for animated card with fade-in and slide-from-bottom
 const AnimatedCard = styled(Card)`
@@ -43,15 +43,15 @@ const OurVision = ({ isPreview = false }) => {
             Our Vision
           </h2> */}
           <div className="d-flex justify-content-center mb-5">
-           <Button
-                    href="/future/vision"
-                    variant="light"
-                    size="lg"
-                    className="fw-bold text-dark"
-                  >
-                    Our Vision
-                  </Button>
-                   </div>
+            <Button
+              href="/future/vision"
+              variant="light"
+              size="lg"
+              className="fw-bold text-dark"
+            >
+              Our Vision
+            </Button>
+          </div>
           <Row className="justify-content-center">
             <Col md={8}>
               <AnimatedCard className="shadow-lg border-0 rounded-4 p-4 text-center">
@@ -70,7 +70,7 @@ const OurVision = ({ isPreview = false }) => {
                   <Card.Text className="text-muted lead">
                     We aim to enhance well-being by turning every purchase into an opportunity for financial empowerment.
                   </Card.Text>
-                 
+
                 </Card.Body>
               </AnimatedCard>
             </Col>

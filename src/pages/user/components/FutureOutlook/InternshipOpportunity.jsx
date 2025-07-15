@@ -205,13 +205,13 @@ const InternshipOpportunity = ({ isPreview = false }) => {
             <Col md={4} className="text-center">
               <h5 className="fw-semibold text-primary">Duration</h5>
               <p className="text-muted">
-                3-6 months, flexible based on your academic schedule.
+                6 months to 1 year, flexible based on your academic schedule.
               </p>
             </Col>
             <Col md={4} className="text-center">
               <h5 className="fw-semibold text-primary">Roles</h5>
               <p className="text-muted">
-                Software Development, UI/UX Design, Data Science, Product Management.
+                Software Development, UI/UX Design, Ios Developer,Web Developer,App Developer.
               </p>
             </Col>
             <Col md={4} className="text-center">
@@ -243,12 +243,13 @@ const InternshipOpportunity = ({ isPreview = false }) => {
           <h3 className="fw-bold text-center text-dark mb-4">How to Apply</h3>
           <p className="text-muted text-center mb-4">
             Ready to join? Follow these simple steps to apply for our internship program.
+            Click the<span className="fw-semibold text-primary"> Apply Now </span> button  on above
           </p>
           <Row className="g-4">
             <Col md={4} className="text-center">
               <h5 className="fw-semibold text-primary">Submit Application</h5>
               <p className="text-muted">
-                Fill out our online application form with your resume and portfolio.
+                Fill out our online application form with your resume or portfolio.
               </p>
             </Col>
             <Col md={4} className="text-center">

@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Spinner, Image } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
+import "../../staff/StaffMemberDetail.css"; // Import the custom CSS file
 
 const StaffMemberDetail = () => {
   const { id } = useParams();
@@ -12,7 +12,7 @@ const StaffMemberDetail = () => {
   useEffect(() => {
     const fetchMember = async () => {
       try {
-        console.log("Fetching member with id:", id); // Debug log
+        console.log("Fetching member with id:", id);
         const response = await fetch(`${API_URL}/public/team/${id}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -24,116 +24,121 @@ const StaffMemberDetail = () => {
         const data = await response.json();
         setMember(data);
       } catch (error) {
-        console.error("Error:", error.message);
+        console.error("Error fetching staff member details:", error.message);
         setMember(null);
       }
     };
     fetchMember();
-  }, [id]);
+  }, [id, API_URL]);
 
   if (!member) {
     return (
       <Container className="py-5 text-center">
-        <Spinner animation="border" />
-        <h3 className="mt-3">Loading...</h3>
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+        <h3 className="mt-3">Loading Staff Member Details...</h3>
       </Container>
     );
   }
 
+
   return (
     <Container className="py-5">
-      <style>{`
-        .staff-card { transition: transform 0.2s; }
-        .staff-card:hover { transform: translateY(-5px); }
-        .profile-img { border-radius: 8px; object-fit: cover; width: 100%; }
-        .label { color: #4B5563; font-weight: 600; }
-        .value { color: #1F2937; margin-bottom: 1rem; }
-        .video-link:hover { text-decoration: underline; color: #1D4ED8; }
-        .qr-code { max-width: 150px; margin-top: 10px; }
-      `}</style>
       <Row className="justify-content-center">
-        <Col md={8} className="mb-4">
+        <Col md={8}>
           <Button
-            className="mb-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg"
+            variant="primary"
+            className="mb-4"
             onClick={() => navigate("/staff-panel")}
           >
-            Back to Staff Members
+            ← Back to Staff Members
           </Button>
-          <Card className="shadow-lg rounded-lg staff-card">
+
+          <Card className="shadow-sm">
             {member.profilePicture && (
               <Card.Img
                 src={member.profilePicture}
                 alt={member.name}
-                className="profile-img"
-                style={{ maxHeight: "400px" }}
+                className="profile-img-detail"
               />
             )}
-            <Card.Body className="p-5">
-              <Card.Title className="text-3xl font-bold text-gray-800 mb-4">{member.name}</Card.Title>
-              <Card.Text className="text-lg">
-                <div className="mb-3">
-                  <span className="label">Role: </span>
-                  <span className="value">{member.role}</span>
-                </div>
-                <div className="mb-3">
-                  <span className="label">Employee ID: </span>
-                  <span className="value">{member.employeeId}</span>
-                </div>
-                <div className="mb-3">
-                  <span className="label">Joining Date: </span>
-                  <span className="value">{member.joiningDate}</span>
-                </div>
-                <div className="mb-3">
-                  <span className="label">Blood Group: </span>
-                  <span className="value">{member.bloodGroup}</span>
-                </div>
-                <div className="mb-3">
-                  <span className="label">Status: </span>
-                  <span className="value">{member.status}</span>
-                </div>
-                {member.status === "Resigned" && member.resignationReason && (
-                  <div className="mb-3">
-                    <span className="label">Resignation Reason: </span>
-                    <span className="value">{member.resignationReason}</span>
-                  </div>
-                )}
-                {member.status === "Terminated" && member.terminationReason && (
-                  <div className="mb-3">
-                    <span className="label">Termination Reason: </span>
-                    <span className="value">{member.terminationReason}</span>
-                  </div>
-                )}
-                <div className="mb-3">
-                  <span className="label">Short Bio: </span>
-                  <span className="value">{member.shortBio || "Not provided"}</span>
-                </div>
-                <div className="mb-3">
-                  <span className="label">Address: </span>
-                  <span className="value">{member.fullBio || "Not provided"}</span>
-                </div>
-                <div className="mb-3">
-                  <span className="label">Skills: </span>
-                  <span className="value">{member.skills.length > 0 ? member.skills.join(", ") : "None"}</span>
-                </div>
-                <div className="mb-3">
-                  <span className="label">Achievements: </span>
-                  <span className="value">{member.achievements || "Not provided"}</span>
-                </div>
-                {member.video && (
-                  <div className="mb-3">
-                    <span className="label">Video: </span>
-                    <a href={member.video} target="_blank" rel="noopener noreferrer" className="text-blue-500 video-link">
-                      Watch Video
-                    </a>
-                  </div>
-                )}
-                {member.qrCode && (
-                  <div className="mb-3">
-                    <span className="label">QR Code: </span>
-                    <Image src={member.qrCode} alt={`QR Code for ${member.name}`} className="qr-code" />
-                  </div>
-                )}
-              </Card.Text>
+            <Card.Body>
+              <Card.Title className="text-center mb-4">{member.name}</Card.Title>
+              <Row className="mb-3">
+                <Col md={4} className="fw-bold">Role:</Col>
+                <Col md={8}>{member.role}</Col>
+              </Row>
+              <Row className="mb-3">
+                <Col md={4} className="fw-bold">Employee ID:</Col>
+                <Col md={8}>{member.employeeId}</Col>
+              </Row>
+              <Row className="mb-3">
+                <Col md={4} className="fw-bold">Joining Date:</Col>
+                <Col md={8}>{member.joiningDate}</Col>
+              </Row>
+              <Row className="mb-3">
+                <Col md={4} className="fw-bold">Blood Group:</Col>
+                <Col md={8}>{member.bloodGroup}</Col>
+              </Row>
+              <Row className="mb-3">
+                <Col md={4} className="fw-bold">Status:</Col>
+                <Col md={8} className={`status-text ${member.status.toLowerCase().replace(" ", "-")}`}>
+                  {member.status}
+                </Col>
+              </Row>
+              {member.status === "Resigned" && member.resignationReason && (
+                <Row className="mb-3">
+                  <Col md={4} className="fw-bold">Resignation Reason:</Col>
+                  <Col md={8}>{member.resignationReason}</Col>
+                </Row>
+              )}
+              {member.status === "Terminated" && member.terminationReason && (
+                <Row className="mb-3">
+                  <Col md={4} className="fw-bold">Termination Reason:</Col>
+                  <Col md={8}>{member.terminationReason}</Col>
+                </Row>
+              )}
+              <Row className="mb-3">
+                <Col md={4} className="fw-bold">Education:</Col>
+                <Col md={8}>{member.shortBio || "Not provided"}</Col>
+              </Row>
+              <Row className="mb-3">
+                <Col md={4} className="fw-bold">Address:</Col>
+                <Col md={8}>{member.fullBio || "Not provided"}</Col>
+              </Row>
+              <Row className="mb-3">
+                <Col md={4} className="fw-bold">Skills:</Col>
+                <Col md={8}>
+                  {member.skills && member.skills.length > 0 ? (
+                    <ul className="mb-0 ps-3">
+                      {member.skills.map((skill, index) => (
+                        <li key={index}>{skill}</li>
+                      ))}
+                    </ul>
+                  ) : "None"}
+                </Col>
+              </Row>
+              <Row className="mb-3">
+                <Col md={4} className="fw-bold">Achievements:</Col>
+                <Col md={8}>{member.achievements || "Not provided"}</Col>
+              </Row>
+              {member.video && (
+                <Row className="mb-3">
+                  <Col md={4} className="fw-bold">Video:</Col>
+                  <Col md={8}>
+                    <a href={member.video} target="_blank" rel="noopener noreferrer">Watch Video</a>
+                  </Col>
+                </Row>
+              )}
+              {member.qrCode && (
+                <Row className="mb-3">
+                  <Col md={4} className="fw-bold">QR Code:</Col>
+                  <Col md={8}>
+                    <Image src={member.qrCode} alt={`QR Code for ${member.name}`} fluid />
+                  </Col>
+                </Row>
+              )}
             </Card.Body>
           </Card>
         </Col>

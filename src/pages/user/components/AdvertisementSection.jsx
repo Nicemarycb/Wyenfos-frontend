@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Carousel, Card } from "react-bootstrap";
+import { Container, Row, Col, Carousel, Card, Button } from "react-bootstrap";
 
 const AdvertisementSection = ({ isPreview = false }) => {
   const [advertisements, setAdvertisements] = useState([]);
@@ -28,38 +28,85 @@ const AdvertisementSection = ({ isPreview = false }) => {
 
   return (
     <Container className="py-5">
-      <h2 className="text-center mb-4">{isPreview ? "Advertisements Preview" : "Our Advertisements"}</h2>
+      <h2 className="text-center mb-4">{isPreview ? "" : "Our Advertisements"}</h2>
+      {isPreview && (
+        <div className="d-flex justify-content-center mb-5">
+          <Button
+            href="/advertisements"
+            variant="light"
+            size="lg"
+            className="fw-bold text-dark"
+          >
+           Advertisements Preview
+          </Button>
+        </div>
+      )}
       {advertisements.length === 0 ? (
         <p className="text-center">No advertisements available.</p>
       ) : (
-        <Carousel>
-          {advertisements.map((ad) => (
-            <Carousel.Item key={ad.id}>
-              <Card className="text-center">
-                <Card.Body>
-                  {ad.image && (
-                    <img
-                      src={ad.image}
-                      alt={ad.title}
-                      style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "contain" }}
-                    />
-                  )}
-                  {ad.video && (
-                    <video
-                      width="100%"
-                      style={{ maxHeight: "400px" }}
-                      controls
-                      className="mt-3"
-                    >
-                      <source src={ad.video} type="video/mp4" />
-                    </video>
-                  )}
-                  <Card.Title className="mt-3">{ad.title}</Card.Title>
-                </Card.Body>
-              </Card>
-            </Carousel.Item>
-          ))}
-        </Carousel>
+        <Row>
+          {isPreview ? (
+            <Col>
+              <Carousel>
+                {advertisements.map((ad) => (
+                  <Carousel.Item key={ad.id}>
+                    <Card className="text-center">
+                      <Card.Body>
+                        {ad.image && (
+                          <img
+                            src={ad.image}
+                            alt={ad.title}
+                            style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "contain" }}
+                          />
+                        )}
+                        {ad.video && (
+                          <video
+                            width="100%"
+                            style={{ maxHeight: "400px" }}
+                            controls
+                            className="mt-3"
+                          >
+                            <source src={ad.video} type="video/mp4" />
+                          </video>
+                        )}
+                        <Card.Title className="mt-3">{ad.title}</Card.Title>
+                      </Card.Body>
+                    </Card>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+            </Col>
+          ) : (
+            <Row className="g-4">
+              {advertisements.map((ad) => (
+                <Col md={4} key={ad.id}>
+                  <Card className="h-100 text-center shadow-sm">
+                    <Card.Body>
+                      {ad.image && (
+                        <img
+                          src={ad.image}
+                          alt={ad.title}
+                          style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                        />
+                      )}
+                      {ad.video && (
+                        <video
+                          width="100%"
+                          height="auto"
+                          controls
+                          className="mt-3"
+                        >
+                          <source src={ad.video} type="video/mp4" />
+                        </video>
+                      )}
+                      <Card.Title className="mt-3">{ad.title}</Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          )}
+        </Row>
       )}
     </Container>
   );

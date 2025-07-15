@@ -12,7 +12,7 @@ const Footer = () => (
           <p className="small">WIPE YOUR EXPENDITURE NEW<br />FORMULA OF SAVINGS</p>
           <div className="d-flex justify-content-center justify-content-md-start gap-3 mt-3">
             <a href="#" className="text-light fs-5"><i className="fa-brands fa-facebook"></i></a>
-            <a href="#" className="text-light fs-5"><i className="fa-brands fa-square-instagram"></i></a>
+            <a href="https://www.instagram.com/wyenfosthrissur/?igsh=MWdlNmRueGx6c2sxZA%3D%3D#" className="text-light fs-5"><i className="fa-brands fa-square-instagram"></i></a>
             <a href="#" className="text-light fs-5"><i className="fa-brands fa-linkedin"></i></a>
             <a href="#" className="text-light fs-5"><i className="fa-brands fa-youtube"></i></a>
           </div>
@@ -25,12 +25,14 @@ const Footer = () => (
             <li><Link to="/" className="text-light text-decoration-none">Home</Link></li>
             <li><Link to="/about" className="text-light text-decoration-none">About Us</Link></li>
             <li><Link to="/services" className="text-light text-decoration-none">Services</Link></li>
-            <li><Link to="/contact" className="text-light text-decoration-none">Contact Us</Link></li>
             <li><Link to="/future/aim" className="text-light text-decoration-none">Our Aim</Link></li>
             <li><Link to="/clients" className="text-light text-decoration-none">Our Clients</Link></li>
             <li><Link to="/team" className="text-light text-decoration-none">Our Team</Link></li>
             <li><Link to="/future/vision" className="text-light text-decoration-none">Our Vision</Link></li>
+            <li><Link to="/advertisements" className="text-light text-decoration-none">Our Advertisements</Link></li>
+            <li><Link to="/contact" className="text-light text-decoration-none">Contact Us</Link></li>
             <li><Link to="/future/internship" className="text-light text-decoration-none">internship Opportunity</Link></li>
+
           </ul>
         </Col>
 
@@ -38,7 +40,7 @@ const Footer = () => (
         <Col md={4}>
           <h5 className="fw-bold text-center text-md-start">Get in Touch</h5>
           <p className="mb-1 fw-bold">WYENFOS Private Limited</p>
-          <p className="mb-1">CJ Tower, Ikkanda Warrior Road, Thrissur</p>
+          <p className="mb-1">C J Tower, Ikkanda Warrior Road, Thrissur</p>
           <p className="mb-1"><strong>Phone:</strong> +91 70124 78846</p>
           <p className="mb-3"><strong>Email:</strong> wyenfospvtltd@gmail.com</p>
           <div style={{ width: '100%', height: '200px' }}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Tabs, Tab } from "react-bootstrap";
+import { Container, Row, Col, Button, Tabs, Tab, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase";
 import { signOut } from "firebase/auth";
@@ -8,6 +8,7 @@ import ClientManagement from "./ClientManagement";
 import ContactSubmissions from "./ContactSubmissions";
 import InternshipInquiries from "./InternshipInquiries";
 import AdvertisementManagement from "./AdvertisementManagement";
+import "../../admin/AdminDashboard.css"; // Import custom CSS for this component
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -38,7 +39,11 @@ const AdminDashboard = () => {
       });
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.error || "Unknown error"}`);
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Message: ${
+            errorData.error || "Unknown error"
+          }`
+        );
       }
       const data = await response.json();
       setTeam(data);
@@ -60,7 +65,11 @@ const AdminDashboard = () => {
       });
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.error || "Unknown error"}`);
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Message: ${
+            errorData.error || "Unknown error"
+          }`
+        );
       }
       const data = await response.json();
       setClients(data);
@@ -82,7 +91,11 @@ const AdminDashboard = () => {
       });
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.error || "Unknown error"}`);
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Message: ${
+            errorData.error || "Unknown error"
+          }`
+        );
       }
       const data = await response.json();
       setContacts(data);
@@ -104,7 +117,11 @@ const AdminDashboard = () => {
       });
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.error || "Unknown error"}`);
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Message: ${
+            errorData.error || "Unknown error"
+          }`
+        );
       }
       const data = await response.json();
       setInquiries(data);
@@ -126,7 +143,11 @@ const AdminDashboard = () => {
       });
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.error || "Unknown error"}`);
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Message: ${
+            errorData.error || "Unknown error"
+          }`
+        );
       }
       const data = await response.json();
       setAdvertisements(data);
@@ -141,60 +162,77 @@ const AdminDashboard = () => {
   };
 
   return (
-    <Container className="py-5">
-      <Row className="mb-4">
-        <Col>
-          <h2 className="text-center">Admin Dashboard</h2>
-          <Button as={Link} to="/staff-panel" variant="primary" className="me-2">
+    <Container className="py-5 admin-dashboard-container">
+      <Row className="mb-4 align-items-center dashboard-header">
+        <Col xs={12} md={6}>
+          <h2 className="dashboard-title">Admin Dashboard</h2>
+        </Col>
+        <Col xs={12} md={6} className="text-md-end button-group">
+          <Button
+            as={Link}
+            to="/staff-panel"
+            variant="outline-primary"
+            className="me-3 staff-panel-button"
+          >
             Staff Panel
           </Button>
-          <Button variant="danger" onClick={handleLogout} className="float-end">
+          <Button variant="danger" onClick={handleLogout} className="logout-button">
             Logout
           </Button>
         </Col>
       </Row>
-      <Tabs defaultActiveKey="team" className="mb-4">
-        <Tab eventKey="team" title="Team Management">
-          <TeamManagement
-            team={team}
-            setTeam={setTeam}
-            fetchTeam={fetchTeam}
-            API_URL={API_URL}
-          />
-        </Tab>
-        <Tab eventKey="clients" title="Client Management">
-          <ClientManagement
-            clients={clients}
-            setClients={setClients}
-            fetchClients={fetchClients}
-            API_URL={API_URL}
-          />
-        </Tab>
-        <Tab eventKey="contacts" title="Contact Submissions">
-          <ContactSubmissions
-            contacts={contacts}
-            setContacts={setContacts}
-            fetchContacts={fetchContacts}
-            API_URL={API_URL}
-          />
-        </Tab>
-        <Tab eventKey="inquiries" title="Internship Inquiries">
-          <InternshipInquiries
-            inquiries={inquiries}
-            setInquiries={setInquiries}
-            fetchInquiries={fetchInquiries}
-            API_URL={API_URL}
-          />
-        </Tab>
-        <Tab eventKey="advertisements" title="Advertisement Management">
-          <AdvertisementManagement
-            advertisements={advertisements}
-            setAdvertisements={setAdvertisements}
-            fetchAdvertisements={fetchAdvertisements}
-            API_URL={API_URL}
-          />
-        </Tab>
-      </Tabs>
+
+      <Card className="dashboard-card">
+        <Card.Body>
+          <Tabs
+            defaultActiveKey="team"
+            id="admin-dashboard-tabs"
+            className="mb-4 custom-tabs"
+            fill // Make tabs fill the available width
+          >
+            <Tab eventKey="team" title="Team Management">
+              <TeamManagement
+                team={team}
+                setTeam={setTeam}
+                fetchTeam={fetchTeam}
+                API_URL={API_URL}
+              />
+            </Tab>
+            <Tab eventKey="clients" title="Client Management">
+              <ClientManagement
+                clients={clients}
+                setClients={setClients}
+                fetchClients={fetchClients}
+                API_URL={API_URL}
+              />
+            </Tab>
+            <Tab eventKey="contacts" title="Contact Submissions">
+              <ContactSubmissions
+                contacts={contacts}
+                setContacts={setContacts}
+                fetchContacts={fetchContacts}
+                API_URL={API_URL}
+              />
+            </Tab>
+            <Tab eventKey="inquiries" title="Internship Inquiries">
+              <InternshipInquiries
+                inquiries={inquiries}
+                setInquiries={setInquiries}
+                fetchInquiries={fetchInquiries}
+                API_URL={API_URL}
+              />
+            </Tab>
+            <Tab eventKey="advertisements" title="Advertisement Management">
+              <AdvertisementManagement
+                advertisements={advertisements}
+                setAdvertisements={setAdvertisements}
+                fetchAdvertisements={fetchAdvertisements}
+                API_URL={API_URL}
+              />
+            </Tab>
+          </Tabs>
+        </Card.Body>
+      </Card>
     </Container>
   );
 };

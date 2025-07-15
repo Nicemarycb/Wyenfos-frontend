@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
@@ -10,14 +9,37 @@ const ContactSection = () => {
     message: "",
   });
   const [submitStatus, setSubmitStatus] = useState(null);
-  const API_URL = " https://us-central1-wyenfos-b7b96.cloudfunctions.net/api"; // Update to deployed URL after deployment
+  const [phoneError, setPhoneError] = useState(null);
+  const API_URL = "https://us-central1-wyenfos-b7b96.cloudfunctions.net/api";
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Validate phone number
+    if (name === "phone") {
+      if (value === "") {
+        setPhoneError(null); // Clear error if phone is empty (optional field)
+      } else {
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(value)) {
+          setPhoneError("Please enter a valid 10-digit phone number");
+        } else {
+          setPhoneError(null);
+        }
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Prevent submission if phone number is invalid
+    if (phoneError) {
+      setSubmitStatus("Please fix the phone number before submitting.");
+      return;
+    }
+
     try {
       const response = await fetch(`${API_URL}/contacts`, {
         method: "POST",
@@ -25,16 +47,17 @@ const ContactSection = () => {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: formData.phone || "", // Optional field
+          phone: formData.phone || "",
           message: formData.message,
-          timestamp: new Date().toISOString(), // Add timestamp for sorting
+          timestamp: new Date().toISOString(),
         }),
       });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       setSubmitStatus("Message sent successfully!");
-      setFormData({ name: "", email: "", phone: "", message: "" }); // Clear form
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setPhoneError(null);
     } catch (error) {
       setSubmitStatus("Failed to send message. Please try again.");
       console.error("Error submitting contact form:", error.message);
@@ -78,7 +101,13 @@ const ContactSection = () => {
                   placeholder="Phone"
                   value={formData.phone}
                   onChange={handleChange}
+                  isInvalid={!!phoneError}
                 />
+                {phoneError && (
+                  <Form.Control.Feedback type="invalid">
+                    {phoneError}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Control

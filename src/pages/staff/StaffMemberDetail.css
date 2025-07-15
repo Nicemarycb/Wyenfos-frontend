@@ -1,0 +1,15 @@
+.status-text {
+  font-weight: bold; /* Optional: Makes status text bold */
+}
+
+.currently-working {
+  color: green; /* Green for Currently Working */
+}
+
+.resigned {
+  color: blue; /* Blue for Resigned */
+}
+
+.terminated {
+  color: red; /* Red for Terminated */
+}

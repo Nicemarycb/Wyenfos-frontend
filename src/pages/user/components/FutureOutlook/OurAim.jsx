@@ -73,9 +73,6 @@ const OurAim = ({ isPreview = false }) => {
     return (
       <section id="future-roadmap" className="py-5 bg-light">
         <Container>
-          {/* <h2 className="display-5 fw-bold text-center mb-5 text-primary">
-            Our Aim
-          </h2> */}
           <div className="d-flex justify-content-center mb-5">
            <Button
               href="/future/aim"

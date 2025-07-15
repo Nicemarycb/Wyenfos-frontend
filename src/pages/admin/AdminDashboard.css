@@ -1,0 +1,102 @@
+/* General Dashboard Container */
+.admin-dashboard-container {
+  background-color: #f8f9fa; /* Light grey background */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.dashboard-title {
+  color: #343a40;
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px; /* Space between buttons */
+  justify-content: flex-end; /* Align buttons to the right */
+  margin-top: 10px; /* Add some space on small screens */
+}
+
+@media (min-width: 768px) {
+  .button-group {
+    margin-top: 0; /* Remove top margin on larger screens */
+  }
+}
+
+.staff-panel-button {
+  border-color: #007bff;
+  color: #007bff;
+  transition: all 0.3s ease;
+}
+
+.staff-panel-button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.logout-button {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+/* Dashboard Card for Tabs */
+.dashboard-card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-card .card-body {
+  padding: 25px;
+}
+
+/* Custom Tabs Styling */
+.custom-tabs .nav-link {
+  color: #495057;
+  font-weight: 500;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 8px 8px 0 0; /* Rounded top corners */
+  margin-right: 5px; /* Space between tabs */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-tabs .nav-link:hover {
+  background-color: #e2e6ea;
+  color: #0056b3;
+}
+
+.custom-tabs .nav-link.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Tab Content Padding */
+.tab-pane {
+  padding-top: 20px;
+  border-top: 1px solid #dee2e6; /* Separator for tab content */
+}
