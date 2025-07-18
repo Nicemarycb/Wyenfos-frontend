@@ -17,7 +17,6 @@ import OurAim from "./pages/user/components/FutureOutlook/OurAim";
 import OurVision from "./pages/user/components/FutureOutlook/OurVision";
 import InternshipOpportunity from "./pages/user/components/FutureOutlook/InternshipOpportunity";
 import OurTeam from "./pages/user/components/FutureOutlook/OurTeam";
-import OurCompany from "./pages/user/components/FutureOutlook/OurCompany";
 import Client from "./pages/user/components/FutureOutlook/Client";
 import InternshipApplication from "./pages/user/components/FutureOutlook/InternshipApplication";
 
@@ -45,7 +44,7 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  const isAdminRoute = location.pathname.startsWith("/admin");
+  const isAdminRoute = location.pathname.startsWith("/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection");
   const isStaffRoute = location.pathname.startsWith("/staff-panel");
 
   return (
@@ -63,7 +62,6 @@ function App() {
         <Route path="/future/vision" element={<OurVision />} />
         <Route path="/future/internship" element={<InternshipOpportunity />} />
         <Route path="/internship/apply" element={<InternshipApplication />} />
-        <Route path="/future/company" element={<OurCompany />} />
         <Route path="/clients" element={<Client />} />
         <Route
           path="/staff-panel"
@@ -78,10 +76,10 @@ function App() {
           element={<StaffMemberDetail />}
         />
         <Route
-          path="/admin"
+          path="/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection"
           element={user ? <AdminDashboard /> : <Login />}
         />
-        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection/login" element={<Login />} />
       </Routes>
       {!isAdminRoute && !isStaffRoute && <Footer />}
     </>

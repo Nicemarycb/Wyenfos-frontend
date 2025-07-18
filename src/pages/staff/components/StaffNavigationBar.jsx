@@ -8,14 +8,14 @@ const StaffNavigationBar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    signOut(auth).then(() => navigate("/admin/login"));
+    signOut(auth).then(() => navigate("/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection/login"));
   };
 
   return (
     <Navbar>
       <Container>
         <NavbarBrand></NavbarBrand>
-        <Button as={Link} to="/admin" variant="outline-primary" className="ms-auto m-4">
+        <Button as={Link} to="/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection" variant="outline-primary" className="ms-auto m-4">
           Admin Dashboard
         </Button>
         <Button variant="danger" onClick={handleLogout} className="m-4">

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import {
@@ -7,6 +6,7 @@ import {
   FaMobileAlt,
   FaPaintBrush,
   FaApple,
+  FaPalette,
 } from "react-icons/fa";
 import styled from "styled-components";
 
@@ -37,7 +37,7 @@ const services = [
       "E-commerce functionality",
     ],
     useCase: "Perfect for businesses needing a professional online presence, such as retail stores or consulting firms.",
-    technologies: ["React", "Vue.js", "WordPress", "Shopify"],
+    technologies: ["React", "Vue.js", "WordPress", "Shopify", "Firebase", "MongoDB", "Angular", "Express", "Node.js"],
   },
   {
     icon: <FaMobileAlt size={40} color="#f1c40f" />,
@@ -55,21 +55,21 @@ const services = [
   },
   {
     icon: <FaPaintBrush size={40} color="#f1c40f" />,
-    title: "Graphic Design",
+    title: "Graphic Designer",
     shortDescription: "Stunning visuals and branding for your business.",
     fullDescription: "Our graphic design services create compelling visuals that communicate your brand’s identity. From logos to marketing collateral, we craft designs that leave a lasting impression.",
     features: [
       "Logo and brand identity",
       "Marketing materials (brochures, flyers)",
-      "UI/UX design",
+      "Graphic design is essentially visual communication",
       "Social media graphics",
     ],
     useCase: "Great for businesses rebranding or launching new products, such as restaurants or tech startups.",
-    technologies: ["Adobe Photoshop", "Illustrator", "Figma", "Canva"],
+    technologies: ["Adobe Photoshop", "Illustrator", "Corel Draw", "After Effects"],
   },
   {
     icon: <FaApple size={40} color="#f1c40f" />,
-    title: "iOS Development",
+    title: "iOS/Android Development",
     shortDescription: "Sleek, high-performance iOS apps for Apple devices.",
     fullDescription: "We specialize in building premium iOS applications optimized for Apple’s ecosystem, delivering exceptional performance and user experiences. Our apps adhere to Apple’s design guidelines for seamless integration.",
     features: [
@@ -81,151 +81,214 @@ const services = [
     useCase: "Ideal for businesses targeting Apple users, such as e-commerce or entertainment apps.",
     technologies: ["Swift", "Xcode", "Core Data", "ARKit"],
   },
+  {
+    icon: <FaPalette size={40} color="#f1c40f" />,
+    title: "UI-UX Designer",
+    shortDescription: "Intuitive and engaging user interfaces for exceptional experiences.",
+    fullDescription: "We craft user-centric designs that prioritize usability and deliver delightful experiences. Our UI/UX services encompass user research, wireframing, prototyping, and visual design to create interfaces that are both functional and beautiful.",
+    features: [
+      "User research and persona development",
+      "Wireframing and prototyping",
+      "Information architecture",
+      "Usability testing",
+      "Interactive design",
+    ],
+    useCase: "Essential for any digital product or service aiming to improve user satisfaction and engagement, such as web applications, mobile apps, or software.",
+    technologies: ["Figma", "Sketch", "Adobe XD", "Miro", "InVision"],
+  },
 ];
 
-// Styled component for animated column with slide-from-left
-const AnimatedCol = styled(Col)`
-  transform: translateX(-100%);
-  opacity: 0;
-  animation: slideInFromLeft 1.2s ease-out forwards;
-  transition: transform 0.6s ease-in-out;
-
-  /* Stagger animation for each card */
-  animation-delay: ${props => props.index * 0.2}s;
+// Styled components for animations
+const AnimatedCard = styled(Card)`
+  transform: scale(1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 
   &:hover {
-    transform: translateY(-10px);
+    transform: scale(1.1); /* Bulge effect on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: #f8f9fa;
   }
 
-  @keyframes slideInFromLeft {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+`;
+
+const AnimatedIcon = styled.div`
+  transition: transform 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.2); /* Slight scale on hover */
+    color: #007bff;
+  }
+`;
+
+const AnimatedSection = styled.section`
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+
+  @keyframes fadeIn {
     0% {
-      transform: translateX(-100%);
       opacity: 0;
     }
     100% {
-      transform: translateX(0);
       opacity: 1;
     }
   }
 `;
 
-const ServicesSection = ({ isPreview = false }) => {
-  if (isPreview) {
-    return (
-      <section id="services" className="py-5 bg-light">
-        <Container>
-          {/* <h2
-          
-            Our Services
-          </h2> */}
-          <div className="d-flex justify-content-center mb-5">
-            <Button
-              href="/services"
-              variant="light"
-              size="lg"
-              className="fw-bold text-dark"
-            >
-              Our Service
-            </Button>
-          </div>
+const AnimatedButton = styled(Button)`
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-          <Row className="justify-content-center">
-            {services.map((service, index) => (
-              <AnimatedCol
-                md={3}
-                sm={6}
-                className="mb-4 text-center"
-                key={index}
-                index={index}
-              >
-                <Card className="shadow-lg border-0 rounded-4 h-100 p-3">
-                  <Card.Body>
-                    <div className="mb-3">{service.icon}</div>
-                    <h5 className="fw-bold">{service.title}</h5>
-                    <p className="text-muted px-2">{service.shortDescription}</p>
-                  </Card.Body>
-                </Card>
-              </AnimatedCol>
-            ))}
-          </Row>
-          <div className="text-center mt-4">
-          </div>
-        </Container>
-      </section>
-    );
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
 
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+  }
+
+  &:hover::after {
+    width: 300px;
+    height: 300px;
+  }
+`;
+
+const AnimatedApproachCard = styled.div`
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: #f8f9fa;
+  }
+`;
+
+const ServicesSection = ({ isPreview = false }) => {
   return (
-    <section id="services" className="py-5 bg-white">
+    <AnimatedSection id="services" className={`py-5 ${isPreview ? 'bg-light' : 'bg-white'}`}>
       <Container>
-        {/* Header */}
-        <h2 className="display-4 fw-bold text-center mb-5 text-warning">
-          Our Comprehensive Services
-        </h2>
-        <p className="lead text-muted text-center mb-5">
-          At Wyenfos, we offer a wide range of technology and design services to empower your business. Explore how we can transform your ideas into reality.
-        </p>
-
-        {/* Service Details */}
-        {services.map((service, index) => (
-          <div key={index} className="mb-5">
-            <Row className="align-items-center">
-              <Col md={4} className="text-center mb-4 mb-md-0">
-                <div className="mb-3">{service.icon}</div>
-                <h3 className="fw-bold">{service.title}</h3>
-              </Col>
-              <Col md={8}>
-                <Card className="shadow-sm border-0 rounded-4 p-4">
-                  <Card.Body>
-                    <p className="text-muted">{service.fullDescription}</p>
-                    <h5 className="fw-semibold mt-4">Key Features</h5>
-                    <ul className="list-unstyled">
-                      {service.features.map((feature, i) => (
-                        <li key={i} className="mb-2">
-                          <span className="text-primary">•</span> {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <h5 className="fw-semibold mt-4">Use Case</h5>
-                    <p className="text-muted">{service.useCase}</p>
-                    <h5 className="fw-semibold mt-4">Technologies</h5>
-                    <p className="text-muted">{service.technologies.join(", ")}</p>
-                  </Card.Body>
-                </Card>
-              </Col>
+        {isPreview ? (
+          <>
+            <div className="d-flex justify-content-center mb-5">
+              <AnimatedButton
+                href="/services"
+                variant="light"
+                size="lg"
+                className="fw-bold text-dark"
+              >
+                Our Service
+              </AnimatedButton>
+            </div>
+            <Row className="justify-content-center">
+              {services.map((service, index) => (
+                <Col md={3} sm={6} className="mb-4 text-center" key={index}>
+                  <AnimatedCard
+                    className="shadow-lg border-0 rounded-4 h-100 p-3"
+                    index={index}
+                  >
+                    <Card.Body>
+                      <AnimatedIcon index={index}>{service.icon}</AnimatedIcon>
+                      <h5 className="fw-bold">{service.title}</h5>
+                      <p className="text-muted px-2">{service.shortDescription}</p>
+                    </Card.Body>
+                  </AnimatedCard>
+                </Col>
+              ))}
             </Row>
-          </div>
-        ))}
-
-        {/* Our Approach Section */}
-        <div className="shadow p-5 rounded-4 bg-light">
-          <h2 className="fw-bold text-center mb-4">Our Approach</h2>
-          <p className="text-muted text-center mb-4">
-            We follow a proven process to deliver exceptional services tailored to your needs.
-          </p>
-          <Row>
-            <Col md={4} className="text-center mb-4">
-              <h5 className="fw-bold">Discovery</h5>
-              <p className="text-muted">
-                We analyze your requirements and goals to create a strategic plan.
+          </>
+        ) : (
+          <>
+            <h2 className="display-4 fw-bold text-center mb-5 text-warning">
+              Our Comprehensive Services
+            </h2>
+            <p className="lead text-muted text-center mb-5">
+              At Wyenfos Infotech, we offer a wide range of technology and design services to empower your business. Explore how we can transform your ideas into reality.
+            </p>
+            {services.map((service, index) => (
+              <div key={index} className="mb-5">
+                <Row className="align-items-center">
+                  <Col md={4} className="text-center mb-4 mb-md-0">
+                    <AnimatedIcon index={index}>{service.icon}</AnimatedIcon>
+                    <h3 className="fw-bold">{service.title}</h3>
+                  </Col>
+                  <Col md={8}>
+                    <AnimatedCard className="shadow-sm border-0 rounded-4 p-4" index={index}>
+                      <Card.Body>
+                        <p className="text-muted">{service.fullDescription}</p>
+                        <h5 className="fw-semibold mt-4">Key Features</h5>
+                        <ul className="list-unstyled">
+                          {service.features.map((feature, i) => (
+                            <li key={i} className="mb-2">
+                              <span className="text-primary">•</span> {feature}
+                            </li>
+                          ))}
+                        </ul>
+                        <h5 className="fw-semibold mt-4">Use Case</h5>
+                        <p className="text-muted">{service.useCase}</p>
+                        <h5 className="fw-semibold mt-4">Technologies</h5>
+                        <p className="text-muted">{service.technologies.join(", ")}</p>
+                      </Card.Body>
+                    </AnimatedCard>
+                  </Col>
+                </Row>
+              </div>
+            ))}
+            <div className="shadow p-5 rounded-4 bg-light">
+              <h2 className="fw-bold text-center mb-4">Our Approach</h2>
+              <p className="text-muted text-center mb-4">
+                We follow a proven process to deliver exceptional services tailored to your needs.
               </p>
-            </Col>
-            <Col md={4} className="text-center mb-4">
-              <h5 className="fw-bold">Development</h5>
-              <p className="text-muted">
-                Our team builds robust, scalable solutions using the latest technologies.
-              </p>
-            </Col>
-            <Col md={4} className="text-center mb-4">
-              <h5 className="fw-bold">Delivery & Support</h5>
-              <p className="text-muted">
-                We deploy your solution and provide ongoing support for success.
-              </p>
-            </Col>
-          </Row>
-        </div>
+              <Row>
+                {[
+                  { title: "Discovery", desc: "We analyze your requirements and goals to create a strategic plan." },
+                  { title: "Development", desc: "Our team builds robust, scalable solutions using the latest technologies." },
+                  { title: "Delivery & Support", desc: "We deploy your solution and provide ongoing support for success." }
+                ].map((item, idx) => (
+                  <Col md={4} className="text-center mb-4" key={idx}>
+                    <AnimatedApproachCard className="p-4 bg-white rounded shadow-sm h-100" index={idx}>
+                      <h5 className="fw-bold">{item.title}</h5>
+                      <p className="text-muted">{item.desc}</p>
+                    </AnimatedApproachCard>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          </>
+        )}
       </Container>
-    </section>
+    </AnimatedSection>
   );
 };
 

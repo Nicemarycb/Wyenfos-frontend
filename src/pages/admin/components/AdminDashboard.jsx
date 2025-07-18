@@ -158,7 +158,7 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = () => {
-    signOut(auth).then(() => navigate("/admin/login"));
+    signOut(auth).then(() => navigate("/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection/login"));
   };
 
   return (

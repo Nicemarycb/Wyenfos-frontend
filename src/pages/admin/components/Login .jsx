@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/admin');
+      navigate('/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection');
     } catch (err) {
       setError('Invalid email or password');
     }

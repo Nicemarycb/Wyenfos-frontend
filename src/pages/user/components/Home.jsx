@@ -6,7 +6,6 @@ import OurAim from "../components/FutureOutlook/OurAim";
 import OurVision from "../components/FutureOutlook/OurVision";
 import InternshipOpportunity from "../components/FutureOutlook/InternshipOpportunity";
 import OurTeam from "../components/FutureOutlook/OurTeam";
-import OurCompany from "../components/FutureOutlook/OurCompany";
 import Client from "../components/FutureOutlook/Client";
 import ContactSection from "../components/ContactSection";
 import AdvertisementSection from "../components/AdvertisementSection";
@@ -22,7 +21,6 @@ const Home = () => {
       <InternshipOpportunity isPreview={true} />
       <Client isPreview={true} />
       <OurTeam isPreview={true} />
-      <OurCompany isPreview={true} />
       <AdvertisementSection isPreview={true} />
       <ContactSection isPreview={true} />
     </div>

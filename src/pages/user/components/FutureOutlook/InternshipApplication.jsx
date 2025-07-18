@@ -37,27 +37,27 @@ const benefits = [
 const internshipRoles = [
   {
     title: "Software Development Intern",
-    description: "Work on full-stack development projects using React, Node.js, and Firebase.",
-    skills: "JavaScript, React, Node.js, Git",
+    description: "Work on full-stack development projects using React, Node.js, Angular and Firebase or MongoDB.",
+    skills: "React, Vue.js, WordPress, Shopify, FireBase, MongoDB, Angular, Express, Node.js",
     duration: "6 month Internship and 6 month Training",
     responsibilities: [
       "Develop and maintain web applications.",
       "Collaborate with the team on project requirements.",
       "Write clean, efficient, and reusable code.",
     ],
-   notes: "We Provide One Year Work Experience Certificate.",
+    notes: "We Provide One Year Work Experience Certificate.",
   },
   {
-    title: "UI/UX Design Intern",
+    title: "UI-UX Designer Intern",
     description: "Design user interfaces and prototypes for web and mobile applications.",
-    skills: "Figma, Adobe XD, User Research",
+    skills: "Figma, Sketch, Adobe XD, Mottif, InVision",
     duration: "6 month Internship and 6 month Training",
     responsibilities: [
       "Create wireframes and prototypes using Figma or Adobe XD.",
       "Conduct user research and usability testing.",
       "Collaborate with developers to implement designs.",
     ],
-   notes: "We Provide One Year Work Experience Certificate.",
+    notes: "We Provide One Year Work Experience Certificate.",
   },
   {
     title: "Graphic Designer Intern",
@@ -69,7 +69,7 @@ const internshipRoles = [
       "Collaborate with the marketing team on branding projects.",
       "Ensure designs align with brand guidelines.",
     ],
-   notes: "We Provide One Year Work Experience Certificate.",
+    notes: "We Provide One Year Work Experience Certificate.",
   },
   {
     title: "Mobile Application Development Intern",
@@ -79,12 +79,12 @@ const internshipRoles = [
     responsibilities: [
       "Build and test mobile apps using Kotlin or Flutter.",
       "Integrate APIs and ensure app performance.",
-      "Work with UI/UX designers for a seamless user experience.",
+      "Work with UI-UX designers for a seamless user experience.",
     ],
-   notes: "We Provide One Year Work Experience Certificate.",
+    notes: "We Provide One Year Work Experience Certificate.",
   },
   {
-    title: "iOS Developer Intern",
+    title: "iOS/Android Development Intern",
     description: "Develop and optimize iOS applications using Swift and Xcode.",
     skills: "Swift, Xcode, iOS SDK",
     duration: "6 month Internship and 6 month Training",
@@ -148,7 +148,7 @@ const InternshipApplication = () => {
     <section id="internship-application" className="py-5 bg-white">
       <Container>
         <h1 className="display-4 fw-bold text-dark text-center mb-5">
-          Apply for an Internship at Wyenfos
+          Apply for an Internship at Wyenfos Infotech
         </h1>
 
         {/* Benefits Section */}

@@ -1,7 +1,6 @@
-
 import React from "react";
 import { Container, Row, Col, Button, Card, Image } from "react-bootstrap";
-import { FaLightbulb, FaRobot, FaUserTie, FaHandsHelping, FaChartLine } from "react-icons/fa";
+import { FaLightbulb, FaRobot, FaUserTie, FaHandsHelping } from "react-icons/fa";
 import styled from "styled-components";
 import aboutImage from "../../../assets/about.webp";
 
@@ -30,27 +29,65 @@ const aboutItems = [
 
 // Define styled component for the Card with animation
 const AnimatedCard = styled(Card)`
-  /* Initial state for slide-from-left animation */
-  transform: translateX(-100%);
+  /* Initial state for slide-from-right animation */
+  transform: translateX(100%);
   opacity: 0;
   /* Slower animation on mount */
-  animation: slideInFromLeft 1.2s ease-out forwards;
+  animation: slideInFromRight 1.5s ease-out forwards;
   /* Slower hover transition */
-  transition: transform 0.6s ease-in-out;
+  transition: transform 0.6s ease-in-out, box-shadow 0.6s ease-in-out;
 
   &:hover {
-    transform: translateY(-10px); /* Lift up on hover */
+    transform: scale(1.05); /* Bulge effect on hover */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
   }
 
-  @keyframes slideInFromLeft {
+  @keyframes slideInFromRight {
     0% {
-      transform: translateX(-100%);
+      transform: translateX(100%);
       opacity: 0;
     }
     100% {
       transform: translateX(0);
       opacity: 1;
     }
+  }
+`;
+
+// Styled component for cards in the "Why Choose Us" section
+const WhyChooseUsCard = styled(Card)`
+  /* Initial state for slide-from-right animation */
+  transform: translateX(100%);
+  opacity: 0;
+  /* Slower animation on mount with staggered delay */
+  animation: slideInFromRight 1.5s ease-out forwards;
+  animation-delay: ${props => props.index * 0.3}s;
+  /* Slower hover transition */
+  transition: transform 0.6s ease-in-out, box-shadow 0.6s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05); /* Bulge effect on hover */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+`;
+
+const AnimatedIcon = styled.div`
+  transition: transform 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.2); /* Slight scale on hover */
+    color: #007bff;
   }
 `;
 
@@ -62,10 +99,10 @@ const AboutSection = ({ isPreview = false }) => {
           <AnimatedCard className="shadow-lg border-0 rounded-4 p-3 animate__animated animate__fadeInUp">
             <Card.Body>
               <h2 className="display-5 fw-bold text-center mb-4 text-dark">
-                About Wyenfos
+                About Wyenfos Infotech
               </h2>
               <p className="lead text-muted text-center mb-4 px-md-5">
-                Wyenfos, based in India, is dedicated to fostering savings and economic stability.
+                Wyenfos Infotech, based in India, is dedicated to fostering savings and economic stability.
                 Learn how we transform expenses into opportunities for growth.
               </p>
               <div className="text-center">
@@ -94,20 +131,19 @@ const AboutSection = ({ isPreview = false }) => {
             <Col md={6}>
               <h2 className="fw-bold mb-4">Who We Are</h2>
               <p className="text-muted" style={{ textAlign: "justify" }}>
-                Wyenfos, headquartered in Karnataka, India, is a trailblazing company committed to making life affordable for all.
-                Our mission, encapsulated in our name "Wyenfos" (Wipe Your Expenditure), is to transform daily expenses into savings opportunities.
-                We empower individuals and businesses to achieve economic stability through innovative services in offline e-commerce, education, transportation, healthcare, and beyond.
+                <strong> Wyenfos Infotech, established on October 25 2023 in Kerala India,</strong> is a pioneering IT firm committed to democratizing financial access through innovative digital solutions. We empower individuals and enterprises alike to cultivate robust economic stability.
               </p>
               <p className="text-muted" style={{ textAlign: "justify" }}>
-                Founded in 2019 by a team of visionary entrepreneurs, Wyenfos combines cutting-edge technology with a human-centric approach.
-                Our goal is to redefine financial wellness by offering solutions that promote savings while addressing immediate needs.
-                From AI-driven insights to community-focused programs, we are reshaping how people manage their finances.
+                Our core strength lies in delivering comprehensive technological solutions, encompassing bespoke iOS and Android application development, sophisticated graphic design, full-stack web development, and advanced software engineering. Beyond client services, we are dedicated to nurturing future talent by offering specialized IT-related courses for students, equipping them with essential skills for the evolving digital landscape.
+              </p>
+              <p className="text-muted" style={{ textAlign: "justify" }}>
+                Founded by visionary entrepreneurs, Wyenfos Infotech seamlessly integrates cutting-edge technology with a human-centric approach. We leverage AI-driven insights and embrace emerging technologies to redefine personal and corporate financial management, providing solutions that address immediate fiscal needs.
               </p>
             </Col>
             <Col md={6} className="text-center">
               <Image
                 src={aboutImage}
-                alt="About Wyenfos"
+                alt="About Wyenfos Infotech"
                 fluid
                 className="rounded"
                 style={{ maxHeight: "350px" }}
@@ -120,40 +156,16 @@ const AboutSection = ({ isPreview = false }) => {
         <Row>
           {aboutItems.map((item, i) => (
             <Col md={6} className="mb-4" key={i}>
-              <Card className="text-center border-0 shadow-sm h-100 p-3">
+              <WhyChooseUsCard className="text-center border-0 shadow-sm h-100 p-3" index={i}>
                 <Card.Body>
-                  {item.icon}
+                  <AnimatedIcon>{item.icon}</AnimatedIcon>
                   <Card.Title className="fw-semibold">{item.title}</Card.Title>
                   <Card.Text className="text-muted">{item.text}</Card.Text>
                 </Card.Body>
-              </Card>
+              </WhyChooseUsCard>
             </Col>
           ))}
         </Row>
-
-        {/* Our Impact Section */}
-        <div className="shadow p-5 rounded-4 bg-light">
-          <h2 className="text-center fw-bold mb-4">Our Impact</h2>
-          <Row>
-            <Col md={6}>
-              <p className="text-muted" style={{ textAlign: "justify" }}>
-                Wyenfos is dedicated to creating a lasting impact on communities and industries:
-              </p>
-              <ul>
-                <li>Helped 10,000+ households save ₹50,000 annually.</li>
-                <li>Trained 500 youth in digital financial literacy.</li>
-                <li>Reduced transaction costs for small businesses by 30% through our e-commerce platform.</li>
-                <li>Promoted sustainable practices in rural markets.</li>
-              </ul>
-            </Col>
-            <Col md={6} className="text-center">
-              <FaChartLine size={100} className="text-success d-block mx-auto mb-3" />
-              <p className="text-center text-muted">
-                Driving measurable growth for our community and clients.
-              </p>
-            </Col>
-          </Row>
-        </div>
       </Container>
     </section>
   );

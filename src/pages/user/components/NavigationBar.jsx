@@ -109,10 +109,8 @@ const NavigationBar = () => {
               <NavDropdown.Item as={Link} to="/clients">Our Clients</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/future/internship">Internship Opportunity</NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="Contact" id="contact-dropdown">
-              <NavDropdown.Item as={Link} to="/contact">Contact Us</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Header>Languages</NavDropdown.Header>
+            <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
+            <NavDropdown title="Languages" id="language-dropdown">
               {languages.map((lang) => (
                 <NavDropdown.Item
                   key={lang.code}

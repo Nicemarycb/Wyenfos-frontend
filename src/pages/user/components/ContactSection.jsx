@@ -132,21 +132,22 @@ const ContactSection = () => {
             <h6 className="text-uppercase fw-semibold mb-3">Contact Details</h6>
             <p>
               <a
-                href="mailto:wyenfospvtltd@gmail.com"
+                href="mailto:wyenfosinfotechcustomercare@gmail.com"
                 className="text-dark text-decoration-none"
               >
-                wyenfospvtltd@gmail.com
+              wyenfosinfotechcustomercare@gmail.com
               </a>
               <br />
-              <strong>7012478846</strong>
+              <strong>8547014116</strong>
             </p>
             <div className="mt-4">
               <p>
-                <strong>WYENFOS Private Limited</strong>
+                <strong>WYENFOS INFOTECH PVT LTD</strong>
                 <br />
-                CJ Tower, Ikkanda Warrior Road,
+               1st FLOOR, Thekkekara Arcade, 
+               Chelakkottukara Uday Nagar Junction,
                 <br />
-                Kerala, Thrissur – 680 001
+               Thrissur, Kerala 680005
               </p>
             </div>
           </Col>

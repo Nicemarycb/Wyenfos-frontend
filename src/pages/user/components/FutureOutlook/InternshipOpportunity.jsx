@@ -10,7 +10,7 @@ const benefits = [
     icon: <Briefcase size={40} className="text-primary mb-3" />,
     title: "Work on Live Projects",
     shortDescription: "Gain real-world experience with client projects.",
-    fullDescription: "Interns at Wyenfos work on live client projects, tackling real challenges in software development, design, and innovation. From building web apps to designing UI/UX, you’ll apply your skills in a professional setting.",
+    fullDescription: "Interns at Wyenfos Infotech work on live client projects, tackling real challenges in software development, design, and innovation. From building web apps to designing UI/UX, you’ll apply your skills in a professional setting.",
     example: "Contribute to e-commerce platforms or AI-driven analytics tools.",
   },
   {
@@ -24,7 +24,7 @@ const benefits = [
     icon: <Star size={40} className="text-warning mb-3" />,
     title: "Career Opportunity",
     shortDescription: "Build your portfolio and career.",
-    fullDescription: "Earn a certificate, showcase your work in a professional portfolio, and gain priority consideration for full-time roles at Wyenfos. Our internship is a launchpad for your tech career.",
+    fullDescription: "Earn a certificate, showcase your work in a professional portfolio, and gain priority consideration for full-time roles at Wyenfos Infotech. Our internship is a launchpad for your tech career.",
     example: "Portfolio projects featured in our client presentations.",
   },
 ];
@@ -179,7 +179,7 @@ const InternshipOpportunity = ({ isPreview = false }) => {
           </Col>
           <Col md={6}>
             <h1 className="display-4 fw-bold text-dark mb-4">
-              Internship Opportunities at Wyenfos
+              Internship Opportunities at Wyenfos Infotech
             </h1>
             <p className="lead text-muted mb-4">
               Launch your career with Wyenfos Infotech’s internship program, designed to provide hands-on experience in cutting-edge technologies and real-world projects.
@@ -211,7 +211,7 @@ const InternshipOpportunity = ({ isPreview = false }) => {
             <Col md={4} className="text-center">
               <h5 className="fw-semibold text-primary">Roles</h5>
               <p className="text-muted">
-                Software Development, UI/UX Design, Ios Developer,Web Developer,App Developer.
+                Software Development, UI-UX Design, Ios/Android Development,Web Development,App Development,Graphic Design.
               </p>
             </Col>
             <Col md={4} className="text-center">
@@ -261,7 +261,7 @@ const InternshipOpportunity = ({ isPreview = false }) => {
             <Col md={4} className="text-center">
               <h5 className="fw-semibold text-primary">Get Started</h5>
               <p className="text-muted">
-                Receive an offer and begin your internship journey with Wyenfos!
+                Receive an offer and begin your internship journey with Wyenfos Infotech!
               </p>
             </Col>
           </Row>

@@ -8,7 +8,7 @@ const Footer = () => (
       <Row>
         {/* Logo & Social */}
         <Col md={4} className="text-center text-md-start mb-4">
-          <h3 className="fw-bold">WYENFOS</h3>
+          <h3 className="fw-bold">WYENFOS INFOTECH</h3>
           <p className="small">WIPE YOUR EXPENDITURE NEW<br />FORMULA OF SAVINGS</p>
           <div className="d-flex justify-content-center justify-content-md-start gap-3 mt-3">
             <a href="#" className="text-light fs-5"><i className="fa-brands fa-facebook"></i></a>
@@ -30,24 +30,22 @@ const Footer = () => (
             <li><Link to="/team" className="text-light text-decoration-none">Our Team</Link></li>
             <li><Link to="/future/vision" className="text-light text-decoration-none">Our Vision</Link></li>
             <li><Link to="/advertisements" className="text-light text-decoration-none">Our Advertisements</Link></li>
-            <li><Link to="/contact" className="text-light text-decoration-none">Contact Us</Link></li>
             <li><Link to="/future/internship" className="text-light text-decoration-none">internship Opportunity</Link></li>
-
+            <li><Link to="/contact" className="text-light text-decoration-none">Contact Us</Link></li>
           </ul>
         </Col>
 
         {/* Contact Info */}
         <Col md={4}>
           <h5 className="fw-bold text-center text-md-start">Get in Touch</h5>
-          <p className="mb-1 fw-bold">WYENFOS Private Limited</p>
-          <p className="mb-1">C J Tower, Ikkanda Warrior Road, Thrissur</p>
-          <p className="mb-1"><strong>Phone:</strong> +91 70124 78846</p>
-          <p className="mb-3"><strong>Email:</strong> wyenfospvtltd@gmail.com</p>
+          <p className="mb-1 fw-bold">WYENFOS INFOTECH PVT LTD</p>
+          <p className="mb-1">1st FLOOR, Thekkekara Arcade, Chelakkottukara Uday Nagar Junction, Thrissur, Kerala 680005</p>
+          <p className="mb-1"><strong>Phone:</strong> +91 8547014116</p>
+          <p className="mb-3"><strong>Email:</strong> wyenfosmd@gamil.com</p>
           <div style={{ width: '100%', height: '200px' }}>
             <iframe
               title="Wyenfos Map"
-              src="https://maps.google.com/maps?q=CJ%20Tower,%20Thrissur&t=&z=15&ie=UTF8&iwloc=&output=embed"
-              width="100%"
+              src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d62763.6700312365!2d76.2249215166528!3d10.521968261214939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sThekkekara%20Arcade%2C%20Chelakkottukara%20Uday%20Nagar%20Junction%2C%20Thrissur%2C%20Kerala%20680005!5e0!3m2!1sen!2sin!4v1752747836985!5m2!1sen!2sin"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen=""
@@ -59,7 +57,7 @@ const Footer = () => (
 
       <hr className="mt-4" />
       <p className="text-center small text-muted">
-        Copyright©2025 Wyenfos pvt ltd. All Rights Reserved
+        Copyright©2025 Wyenfos Infotech. All Rights Reserved
       </p>
     </Container>
   </footer>

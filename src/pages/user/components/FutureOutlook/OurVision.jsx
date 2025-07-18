@@ -24,7 +24,34 @@ const AnimatedCard = styled(Card)`
     }
   }
 `;
+const AnimatedButton = styled(Button)`
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+  }
+
+  &:hover::after {
+    width: 300px;
+    height: 300px;
+  }
+`;
 
 // Styled component for image with hover zoom
 const ZoomImage = styled(Image)`
@@ -43,14 +70,14 @@ const OurVision = ({ isPreview = false }) => {
             Our Vision
           </h2> */}
           <div className="d-flex justify-content-center mb-5">
-            <Button
+           <AnimatedButton
               href="/future/vision"
               variant="light"
               size="lg"
               className="fw-bold text-dark"
             >
               Our Vision
-            </Button>
+           </AnimatedButton>
           </div>
           <Row className="justify-content-center">
             <Col md={8}>
@@ -88,7 +115,8 @@ const OurVision = ({ isPreview = false }) => {
           Our Vision for the Future
         </h2>
         <p className="lead text-muted text-center mb-5">
-          Wyenfos is committed to transforming lives by integrating convenience, financial empowerment, and innovation into every interaction. Our vision is to create a world where daily transactions lead to a more secure and fulfilling life.
+          Wyenfos Infotech is committed to transforming lives by integrating convenience, financial empowerment,
+          and innovation into every interaction. Our vision is to create a new world where daily transactions lead to a more secure and fulfilling life.
         </p>
 
         {/* Vision Statement */}
@@ -106,13 +134,13 @@ const OurVision = ({ isPreview = false }) => {
             <Card className="shadow-sm border-0 rounded-4 p-4">
               <Card.Body>
                 <p className="lead fw-semibold text-secondary">
-                  Our company is dedicated to simplifying the day-to-day lives of all individuals.
+                  Our company Empowering Futures, Everyday: The Wyenfos Infotech Promise
                 </p>
                 <p className="text-muted">
-                  At Wyenfos, we envision a future where every purchase contributes to financial stability. By embedding income-generating opportunities into everyday transactions, we aim to enhance overall well-being and foster economic resilience.
+                  At Wyenfos Infotech, we envision a future where every individual is equipped with the essential IT skills to achieve financial stability and career advancement. By providing accessible, high-quality educational opportunities, we aim to empower aspiring professionals to thrive in the digital economy and foster their economic resilience.
                 </p>
                 <p className="text-muted">
-                  Our commitment extends beyond products and services. We strive to build a holistic ecosystem that prioritizes convenience, accessibility, and empowerment, ensuring that everyone can achieve a more secure and fulfilling life.
+                  Our commitment extends profoundly beyond merely offering courses. We are assiduously building a holistic educational ecosystem that prioritizes unparalleled convenience, ensuring flexible learning paths adaptable to diverse schedules; unwavering accessibility, making cutting-edge IT education attainable for everyone, regardless of background; and robust empowerment, equipping our students with practical skills and confidence to excel in their chosen fields. Through our meticulously designed curriculum, expert instructors, and a supportive learning environment, we are dedicated to ensuring that every learner can achieve a more secure, fulfilling, and technologically proficient life.
                 </p>
               </Card.Body>
             </Card>
@@ -125,9 +153,9 @@ const OurVision = ({ isPreview = false }) => {
           <Col md={4}>
             <Card className="text-center shadow-sm border-0 rounded-4 h-100 p-3">
               <Card.Body>
-                <h5 className="fw-bold text-dark">Financial Empowerment</h5>
+                <h5 className="fw-bold text-dark">Skill Mastery</h5>
                 <p className="text-muted">
-                  We enable individuals to generate income through every purchase, creating a cycle of financial growth and stability.
+                  We empower individuals with in-demand IT skills and knowledge, fostering expertise crucial for navigating the digital landscape.
                 </p>
               </Card.Body>
             </Card>

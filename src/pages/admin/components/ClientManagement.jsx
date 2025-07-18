@@ -39,6 +39,7 @@ const ClientManagement = ({ clients, setClients, fetchClients, API_URL }) => {
     fullDescription: "",
     collaboration: "",
     impact: "",
+    website: "",
   });
   const [editingClient, setEditingClient] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -60,6 +61,7 @@ const ClientManagement = ({ clients, setClients, fetchClients, API_URL }) => {
       fullDescription: "",
       collaboration: "",
       impact: "",
+      website: "",
     });
     setShowModal(false);
   };
@@ -72,10 +74,30 @@ const ClientManagement = ({ clients, setClients, fetchClients, API_URL }) => {
     setAlertModal({ show: true, title, message, variant, onConfirm });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (!file.type.startsWith("image/")) {
+        showAlertModal("Error", "Please upload a valid image file.", "danger");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewClient({ ...newClient, logo: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleAddOrUpdateClient = async (e) => {
     e.preventDefault();
     if (!auth.currentUser) {
       showAlertModal("Authentication Error", "Please log in to add or update a client.", "danger");
+      return;
+    }
+    // Validate name field
+    if (!newClient.name.trim()) {
+      showAlertModal("Validation Error", "Client name is required.", "danger");
       return;
     }
     const method = editingClient ? "PUT" : "POST";
@@ -176,6 +198,7 @@ const ClientManagement = ({ clients, setClients, fetchClients, API_URL }) => {
               <th>Logo</th>
               <th>Short Description</th>
               <th>Collaboration</th>
+              <th>Website</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -186,9 +209,24 @@ const ClientManagement = ({ clients, setClients, fetchClients, API_URL }) => {
                 <td>{client.logo && <img src={client.logo} alt="Client Logo" style={{ width: '50px', height: '50px', objectFit: 'contain' }} />}</td>
                 <td>{client.shortDescription}</td>
                 <td>{client.collaboration}</td>
+                <td>{client.website ? <a href={client.website} target="_blank" rel="noopener noreferrer">{client.website}</a> : '-'}</td>
                 <td>
-                  <Button variant="info" size="sm" onClick={() => handleEditClient(client)} className="me-2">Edit</Button>
-                  <Button variant="secondary" size="sm" onClick={() => handleDeleteClient(client.id)}>Delete</Button>
+                  <div className="d-flex flex-column flex-md-row justify-content-center gap-2">
+                    <Button
+                      variant="info"
+                      size="sm"
+                      onClick={() => handleEditClient(client)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => handleDeleteClient(client.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -210,11 +248,29 @@ const ClientManagement = ({ clients, setClients, fetchClients, API_URL }) => {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Logo URL</Form.Label>
+                <Form.Label>Logo Image</Form.Label>
                 <Form.Control
-                  type="text"
-                  value={newClient.logo}
-                  onChange={(e) => setNewClient({ ...newClient, logo: e.target.value })}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+                {newClient.logo && (
+                  <div className="mt-2">
+                    <img
+                      src={newClient.logo}
+                      alt="Logo Preview"
+                      style={{ width: '100px', height: '100px', objectFit: 'contain' }}
+                    />
+                  </div>
+                )}
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Website</Form.Label>
+                <Form.Control
+                  type="url"
+                  value={newClient.website}
+                  onChange={(e) => setNewClient({ ...newClient, website: e.target.value })}
+                  placeholder="https://example.com"
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -249,7 +305,8 @@ const ClientManagement = ({ clients, setClients, fetchClients, API_URL }) => {
                   onChange={(e) => setNewClient({ ...newClient, impact: e.target.value })}
                 />
               </Form.Group>
-              <Button type="submit" variant="primary">{editingClient ? "Update Client" : "Add Client"}</Button>
+              <Button type="submit"
+                variant="primary">{editingClient ? "Update Client" : "Add Client"}</Button>
               <Button variant="secondary" onClick={handleCloseModal} className="ms-2">Cancel</Button>
             </Form>
           </Modal.Body>

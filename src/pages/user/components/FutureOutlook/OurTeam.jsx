@@ -303,7 +303,7 @@ const OurTeam = ({ isPreview = false }) => {
             Our Team Culture
           </h3>
           <p className="text-muted text-center mb-4">
-            Collaboration, innovation, and growth define our team at Wyenfos.
+            Collaboration, innovation, and growth define our team at Wyenfos Infotech.
             Here’s what makes us unique:
           </p>
           <Row className="g-4">
