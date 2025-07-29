@@ -3,6 +3,7 @@ import { Navbar, Container, Button, NavbarBrand } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase";
 import { signOut } from "firebase/auth";
+import "../../staff/StaffMemberDetail.css";
 
 const StaffNavigationBar = () => {
   const navigate = useNavigate();
@@ -15,7 +16,10 @@ const StaffNavigationBar = () => {
     <Navbar>
       <Container>
         <NavbarBrand></NavbarBrand>
-        <Button as={Link} to="/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection" variant="outline-primary" className="ms-auto m-4">
+        <Button as={Link}
+          to="/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection"
+          variant="outline-primary"
+          className="admin-dashboard-button ms-auto m-4">
           Admin Dashboard
         </Button>
         <Button variant="danger" onClick={handleLogout} className="m-4">

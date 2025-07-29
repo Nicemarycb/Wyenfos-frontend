@@ -147,7 +147,7 @@ const OurTeam = ({ isPreview = false }) => {
         const currentlyWorkingMembers = data.filter(
           (member) => member.status === "Currently Working"
         );
-        setTeamMembers(currentlyWorkingMembers); //
+        setTeamMembers(currentlyWorkingMembers);
       } catch (error) {
         console.error("Failed to fetch team:", error.message);
         setTeamMembers([]);
@@ -191,7 +191,7 @@ const OurTeam = ({ isPreview = false }) => {
                           />
                         )}
                         <h6 className="fw-bold text-dark">{member.name}</h6>
-                        <p className="text-primary small fw-semibold">
+                        <p className="text-dark small fw-semibold">
                           {member.role}
                         </p>
                         <p className="text-muted small">
@@ -199,7 +199,11 @@ const OurTeam = ({ isPreview = false }) => {
                             ? member.skills.join(", ")
                             : "No skills listed"}
                         </p>
-
+                        {member.quotes && (
+                          <p className="text-muted small fst-italic">
+                            "{member.quotes}"
+                          </p>
+                        )}
                         {member.video && (
                           <a
                             href={member.video}
@@ -271,6 +275,11 @@ const OurTeam = ({ isPreview = false }) => {
                     <li className="text-muted small">No technologies listed</li>
                   )}
                 </ul>
+                {member.quotes && (
+                  <p className="text-muted fst-italic mt-3">
+                    "{member.quotes}"
+                  </p>
+                )}
                 {member.video && (
                   <div className="mt-3">
                     {getYouTubeEmbedUrl(member.video) ? (

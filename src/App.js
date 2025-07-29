@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import NavigationBar from "./pages/user/components/NavigationBar";
 import Footer from "./pages/user/components/Footer";
@@ -23,6 +23,7 @@ import InternshipApplication from "./pages/user/components/FutureOutlook/Interns
 // Admin components
 import AdminDashboard from "./pages/admin/components/AdminDashboard";
 import Login from "./pages/admin/components/Login ";
+import VerifyChange from "./pages/admin/components/VerifyChange";
 
 // Staff components
 import StaffMembers from "./pages/staff/components/StaffMembers";
@@ -33,7 +34,7 @@ import StaffNavigationBar from "./pages/staff/components/StaffNavigationBar";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
-function App() {
+const AppContent = () => {
   const [user, setUser] = useState(null);
   const location = useLocation();
 
@@ -79,12 +80,26 @@ function App() {
           path="/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection"
           element={user ? <AdminDashboard /> : <Login />}
         />
-        <Route path="/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection/login" element={<Login />} />
+        <Route
+          path="/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection/login"
+          element={<Login />}
+        />
+        <Route
+          path="/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection/verify-email"
+          element={<VerifyChange type="email" />}
+        />
+        <Route
+          path="/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection/verify-password"
+          element={<VerifyChange type="password" />}
+        />
       </Routes>
       {!isAdminRoute && !isStaffRoute && <Footer />}
     </>
   );
+};
+
+function App() {
+  return <AppContent />;
 }
 
 export default App;
-

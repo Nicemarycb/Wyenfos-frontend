@@ -102,8 +102,8 @@ const AboutSection = ({ isPreview = false }) => {
                 About Wyenfos Infotech
               </h2>
               <p className="lead text-muted text-center mb-4 px-md-5">
-                Wyenfos Infotech, based in India, is dedicated to fostering savings and economic stability.
-                Learn how we transform expenses into opportunities for growth.
+                Wyenfos Infotech, based in India,
+               seamlessly integrates cutting-edge technology with a human-centric approach
               </p>
               <div className="text-center">
                 <Button

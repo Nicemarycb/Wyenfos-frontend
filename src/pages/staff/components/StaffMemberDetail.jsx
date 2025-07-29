@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Spinner, Image } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
+import { auth } from "../../../firebase";
 import "../../staff/StaffMemberDetail.css"; // Import the custom CSS file
 
 const StaffMemberDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [member, setMember] = useState(null);
+  const [loading, setLoading] = useState(true);
   const API_URL = "https://us-central1-wyenfos-b7b96.cloudfunctions.net/api";
 
   useEffect(() => {
     const fetchMember = async () => {
       try {
+        setLoading(true);
         console.log("Fetching member with id:", id);
-        const response = await fetch(`${API_URL}/public/team/${id}`, {
+        const response = await fetch(`${API_URL}/team/public/${id}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -26,12 +29,14 @@ const StaffMemberDetail = () => {
       } catch (error) {
         console.error("Error fetching staff member details:", error.message);
         setMember(null);
+      } finally {
+        setLoading(false);
       }
     };
     fetchMember();
   }, [id, API_URL]);
 
-  if (!member) {
+  if (loading) {
     return (
       <Container className="py-5 text-center">
         <Spinner animation="border" role="status">
@@ -42,18 +47,30 @@ const StaffMemberDetail = () => {
     );
   }
 
+  if (!member) {
+    return (
+      <Container className="py-5 text-center">
+        <h3>Staff Member Not Found</h3>
+      </Container>
+    );
+  }
+
+  // Check if user is authenticated
+  const isAuthenticated = !!auth.currentUser;
 
   return (
     <Container className="py-5">
       <Row className="justify-content-center">
         <Col md={8}>
-          <Button
-            variant="primary"
-            className="mb-4"
-            onClick={() => navigate("/staff-panel")}
-          >
-            ← Back to Staff Members
-          </Button>
+          {isAuthenticated && (
+            <Button
+              variant="primary"
+              className="mb-4"
+              onClick={() => navigate("/staff-panel")}
+            >
+              ← Back to Staff Members
+            </Button>
+          )}
 
           <Card className="shadow-sm">
             {member.profilePicture && (
@@ -80,6 +97,10 @@ const StaffMemberDetail = () => {
               <Row className="mb-3">
                 <Col md={4} className="fw-bold">Blood Group:</Col>
                 <Col md={8}>{member.bloodGroup}</Col>
+              </Row>
+               <Row className="mb-3">
+                <Col md={4} className="fw-bold">Emergency Phone:</Col>
+                <Col md={8}>{member.emergencyPhone || "Not provided"}</Col>
               </Row>
               <Row className="mb-3">
                 <Col md={4} className="fw-bold">Status:</Col>
@@ -123,6 +144,10 @@ const StaffMemberDetail = () => {
                 <Col md={4} className="fw-bold">Achievements:</Col>
                 <Col md={8}>{member.achievements || "Not provided"}</Col>
               </Row>
+              <Row className="mb-3">
+                <Col md={4} className="fw-bold">Quotes:</Col>
+                <Col md={8}>{member.quotes || "Not provided"}</Col>
+              </Row>
               {member.video && (
                 <Row className="mb-3">
                   <Col md={4} className="fw-bold">Video:</Col>
@@ -131,7 +156,7 @@ const StaffMemberDetail = () => {
                   </Col>
                 </Row>
               )}
-              {member.qrCode && (
+              {isAuthenticated && member.qrCode && (
                 <Row className="mb-3">
                   <Col md={4} className="fw-bold">QR Code:</Col>
                   <Col md={8}>

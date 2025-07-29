@@ -1,15 +1,365 @@
+/* Inherit color palette from AdminDashboard.css */
+:root {
+  --primary: #b79fde; /* Deep Purple */
+  --primary-dark: #aa88db; /* Darker Purple */
+  --primary-light: #8c7dbc; /* Lighter Purple */
+  --secondary: #64748b; /* Slate Gray */
+  --accent: #14b8a6; /* Teal */
+  --accent-dark: #0d9488; /* Darker Teal */
+  --danger: #f43f5e; /* Rose Red */
+  --danger-dark: #e11d48; /* Darker Red */
+  --success: #34d399; /* Emerald Green */
+  --success-dark: #10b981; /* Darker Green */
+  --warning: #f59e0b; /* Amber */
+  --background: #f1f5f9; /* Light Slate */
+  --card-bg: linear-gradient(145deg, #e0e7ff, #d1fae5); /* Matching gradient */
+  --text-primary: #1e293b;/* Dark Slate */
+  --text-secondary: #475569; /* Medium Slate */
+  --border: #d1d5db; /* Gray Border */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+  --gradient-primary: linear-gradient(135deg, #82759a, #735d94);
+  --gradient-accent: linear-gradient(135deg, #2dd4bf, #0d9488);
+}
+
+/* Navbar Container */
+.navbar {
+  background: var(--background);
+  border-bottom: 2px solid var(--border);
+  padding: 1rem 0;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Admin Dashboard Button */
+.admin-dashboard-button {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+  border-radius: 10px;
+  padding: 0.6rem 1.8rem;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-dashboard-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-light);
+  opacity: 0.2;
+  transition: left 0.3s ease;
+}
+
+.admin-dashboard-button:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-dashboard-button:hover::after {
+  left: 0;
+}
+
+/* Logout Button */
+.btn-danger {
+  background: var(--danger);
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.8rem;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #fff;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.btn-danger:hover {
+  background: var(--danger-dark);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Container Styling */
+.container.py-5 {
+  background: var(--background);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.container.py-5::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+/* Card Styling */
+.card {
+  background: var(--card-bg);
+  border: none;
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-body {
+  padding: 2.5rem;
+  background: var(--card-bg);
+}
+
+/* Profile Image */
+.profile-img-detail {
+  border-radius: 12px;
+  height: 180px; /* Proportional height */
+  max-width: 100%; /* Prevent overflow */
+  width: auto; /* Maintain aspect ratio */
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border: 2px solid var(--border);
+  display: block;
+  margin: 0 auto; /* Center the image */
+}
+
+.profile-img-detail:hover {
+  transform: scale(1.05);
+}
+
+/* Card Title */
+.card-title {
+  color: var(--text-primary);
+  font-size: 2rem;
+  font-weight: 500;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.02em;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Status Text */
 .status-text {
-  font-weight: bold; /* Optional: Makes status text bold */
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
 .currently-working {
-  color: green; /* Green for Currently Working */
+  color: var(--success-dark);
+  background: rgba(52, 211, 153, 0.1); /* Subtle green tint */
 }
 
 .resigned {
-  color: blue; /* Blue for Resigned */
+  color: var(--primary-light);
+  background: rgba(167, 139, 250, 0.1); /* Subtle purple tint */
 }
 
 .terminated {
-  color: red; /* Red for Terminated */
+  color: var(--danger-dark);
+  background: rgba(244, 63, 94, 0.1); /* Subtle red tint */
+}
+
+.status-text:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Row Styling */
+.row.mb-3 {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.3s ease;
+}
+
+.row.mb-3:hover {
+  background: rgba(20, 184, 166, 0.05); /* Subtle teal tint */
+}
+
+.fw-bold {
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* List Styling for Skills */
+ul.mb-0.ps-3 {
+  list-style-type: none;
+  padding-left: 1.5rem;
+}
+
+ul.mb-0.ps-3 li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+ul.mb-0.ps-3 li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.8rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:active {
+  animation: pulse 0.2s ease;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Link Styling for Video */
+a[href^="http"] {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a[href^="http"]:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* QR Code Image */
+img[alt*="QR Code"] {
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  transition: transform 0.3s ease;
+}
+
+img[alt*="QR Code"]:hover {
+  transform: scale(1.05);
+}
+
+/* Spinner Styling */
+.spinner-border {
+  color: var(--primary);
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.4em;
+}
+
+/* Text for Loading/Not Found */
+h3.mt-3, h3 {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.8rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 1.6rem;
+  }
+
+  .container.py-5 {
+    padding: 1.8rem;
+  }
+
+  .card-body {
+    padding: 1.8rem;
+  }
+
+  .profile-img-detail {
+    height: 150px; /* Smaller height for tablets */
+  }
+
+  .row.mb-3 {
+    font-size: 0.9rem;
+  }
+
+  .fw-bold {
+    font-size: 0.95rem;
+  }
+
+  .admin-dashboard-button,
+  .btn-danger {
+    width: 100%;
+    text-align: center;
+    margin: 0.5rem 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-title {
+    font-size: 1.4rem;
+  }
+
+  .container.py-5 {
+    padding: 1.5rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .profile-img-detail {
+    height: 120px; /* Smaller height for mobile */
+  }
+
+  .row.mb-3 {
+    font-size: 0.85rem;
+  }
+
+  h3.mt-3, h3 {
+    font-size: 1.5rem;
+  }
 }

@@ -57,6 +57,7 @@ const StaffMembers = () => {
                   <strong>Employee ID:</strong> {member.employeeId}<br />
                   <strong>Joining Date:</strong> {member.joiningDate}<br />
                   <strong>Blood Group:</strong> {member.bloodGroup}<br />
+                  <strong>Emergency Phone:</strong> {member.emergencyPhone || "Not provided"}<br />
                   <strong>Status:</strong> {member.status}
                 </Card.Text>
                 <Button as={Link} to={`/staff-panel/${member.id}`} variant="primary">

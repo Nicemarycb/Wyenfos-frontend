@@ -165,7 +165,33 @@ const AdminDashboard = () => {
     <Container className="py-5 admin-dashboard-container">
       <Row className="mb-4 align-items-center dashboard-header">
         <Col xs={12} md={6}>
-          <h2 className="dashboard-title">Admin Dashboard</h2>
+        <h2
+            className="text-center mb-4 fw-bold"
+            style={{
+              fontSize: '2.0rem',
+              background: 'linear-gradient(90deg, #007bff, #6610f2, #6f42c1)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              animation: 'shine 4s linear infinite',
+              fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
+              textTransform: 'uppercase',
+              letterSpacing: '2px',
+            }}
+          >
+            Admin Login
+          </h2>
+          <style>
+            {`
+@keyframes shine {
+  0% {
+    background-position: -500px;
+  }
+  100% {
+    background-position: 500px;
+  }
+}
+`}
+</style>
         </Col>
         <Col xs={12} md={6} className="text-md-end button-group">
           <Button

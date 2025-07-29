@@ -47,6 +47,8 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
     status: "Currently Working",
     resignationReason: "",
     terminationReason: "",
+    quotes: "",
+    emergencyPhone: "",
   });
   const [editingTeamMember, setEditingTeamMember] = useState(null);
   const [file, setFile] = useState(null);
@@ -77,6 +79,8 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
       status: "Currently Working",
       resignationReason: "",
       terminationReason: "",
+      quotes: "",
+      emergencyPhone: "",
     });
     setFile(null);
   };
@@ -98,6 +102,8 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
         status: member.status || "Currently Working",
         resignationReason: member.resignationReason || "",
         terminationReason: member.terminationReason || "",
+        quotes: member.quotes || "",
+        emergencyPhone: member.emergencyPhone || "",
       });
       setEditingTeamMember(member.id);
     } else {
@@ -116,6 +122,8 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
         status: "Currently Working",
         resignationReason: "",
         terminationReason: "",
+        quotes: "",
+        emergencyPhone: "",
       });
       setEditingTeamMember(null);
     }
@@ -150,6 +158,12 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
     }
   };
 
+   const validatePhoneNumber = (phone) => {
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+    return phone === "" || phoneRegex.test(phone);
+  };
+
+
   const handleAddOrUpdateTeamMember = async (e) => {
     e.preventDefault();
     if (!auth.currentUser) {
@@ -157,7 +171,7 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
       return;
     }
 
-    const { name, role, employeeId, joiningDate, bloodGroup, status, resignationReason, terminationReason } = newTeamMember;
+    const { name, role, employeeId, joiningDate, bloodGroup, status, resignationReason, terminationReason ,emergencyPhone } = newTeamMember;
     if (!name || !role || !employeeId || !joiningDate || !bloodGroup || !status) {
       showAlertModal("Missing Fields", "Please fill in all required fields: Name, Role, Employee ID, Joining Date, Blood Group, Status");
       return;
@@ -168,6 +182,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
     }
     if (status === "Terminated" && !terminationReason) {
       showAlertModal("Missing Reason", "Please provide a termination reason for terminated status.");
+      return;
+    }
+    if (!validatePhoneNumber(emergencyPhone)) {
+      showAlertModal("Invalid Phone Number", "Please enter a valid emergency phone number (e.g., +1234567890) or leave it blank.");
       return;
     }
 
@@ -268,17 +286,13 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
     try {
       if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
         await navigator.share(shareData);
-        // Only show success if share completes
         showAlertModal("Success", "QR code shared successfully!", "success");
       } else {
         await navigator.clipboard.writeText(qrCode);
-        // Only show success if copy completes
         showAlertModal("Success", "QR code URL copied to clipboard!", "success");
       }
     } catch (error) {
-      // Handle cancellation or failure without showing success
       if (error.name === "AbortError") {
-        // Do nothing if user cancels the share dialog
       } else {
         console.error("Failed to share QR code:", error.message);
         showAlertModal("Error", `Failed to share QR code: ${error.message}`, "danger");
@@ -356,6 +370,21 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     }
                     required
                   />
+                </Form.Group>
+                 <Form.Group className="mb-3">
+                  <Form.Label>Emergency Phone</Form.Label>
+                  <Form.Control
+                    type="tel"
+                    value={newTeamMember.emergencyPhone}
+                    onChange={(e) =>
+                      setNewTeamMember({ ...newTeamMember, emergencyPhone: e.target.value })
+                    }
+                    placeholder="+1234567890"
+                    isInvalid={newTeamMember.emergencyPhone && !validatePhoneNumber(newTeamMember.emergencyPhone)}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a valid phone number (e.g., +1234567890) or leave blank.
+                  </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Status</Form.Label>
@@ -458,6 +487,16 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
+                  <Form.Label>Quotes</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    value={newTeamMember.quotes}
+                    onChange={(e) =>
+                      setNewTeamMember({ ...newTeamMember, quotes: e.target.value })
+                    }
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
                   <Form.Label>Video URL</Form.Label>
                   <Form.Control
                     type="text"
@@ -501,6 +540,7 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
               <th>Joining Date</th>
               <th>Blood Group</th>
               <th>Status</th>
+              {/* <th>Quotes</th> */}
               <th>QR Code</th>
               <th>Action</th>
             </tr>
@@ -514,6 +554,7 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                 <td>{member.joiningDate}</td>
                 <td>{member.bloodGroup}</td>
                 <td>{member.status}</td>
+                {/* <td>{member.quotes}</td> */}
                 <td>
                   {member.qrCode ? (
                     <Image
