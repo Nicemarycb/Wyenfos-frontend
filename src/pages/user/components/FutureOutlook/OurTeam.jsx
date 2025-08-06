@@ -98,33 +98,18 @@ const CustomSection = styled.div`
     margin-top: 1rem;
   }
 
-  .video-wrapper iframe {
+  .video-wrapper video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    border: 0;
   }
 `;
 
 const OurTeam = ({ isPreview = false }) => {
   const [teamMembers, setTeamMembers] = useState([]);
   const API_URL = "https://us-central1-wyenfos-b7b96.cloudfunctions.net/api";
-
-  // Function to convert YouTube URL to embed URL
-  const getYouTubeEmbedUrl = (url) => {
-    try {
-      const urlObj = new URL(url);
-      if (urlObj.hostname.includes("youtube.com") || urlObj.hostname.includes("youtu.be")) {
-        const videoId = urlObj.searchParams.get("v") || urlObj.pathname.split("/").pop();
-        return `https://www.youtube.com/embed/${videoId}`;
-      }
-      return null; // Return null if not a YouTube URL
-    } catch {
-      return null;
-    }
-  };
 
   useEffect(() => {
     const fetchTeam = async () => {
@@ -205,14 +190,13 @@ const OurTeam = ({ isPreview = false }) => {
                           </p>
                         )}
                         {member.video && (
-                          <a
-                            href={member.video}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline text-sm mt-2"
-                          >
-                            Watch Video
-                          </a>
+                          <div className="video-wrapper">
+                            <video
+                              src={member.video}
+                              controls
+                              style={{ width: "100%", borderRadius: "0.5rem" }}
+                            />
+                          </div>
                         )}
                       </AnimatedSection>
                     </Col>
@@ -281,26 +265,12 @@ const OurTeam = ({ isPreview = false }) => {
                   </p>
                 )}
                 {member.video && (
-                  <div className="mt-3">
-                    {getYouTubeEmbedUrl(member.video) ? (
-                      <div className="video-wrapper">
-                        <iframe
-                          src={getYouTubeEmbedUrl(member.video)}
-                          title={`${member.name}'s Video`}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        ></iframe>
-                      </div>
-                    ) : (
-                      <a
-                        href={member.video}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-500 hover:underline text-sm"
-                      >
-                        Watch Video
-                      </a>
-                    )}
+                  <div className="video-wrapper">
+                    <video
+                      src={member.video}
+                      controls
+                      className="mt-3"
+                    />
                   </div>
                 )}
               </CustomSection>

@@ -4,7 +4,7 @@ import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { Briefcase, People, Star } from "react-bootstrap-icons";
 import styled from "styled-components";
 import internImage from "../../../../assets/intern.webp"; // Corrected path
-
+import internImage1 from "../../../../assets/ThinkOwl_blog_customerjourney_coverimage02.webp"
 const benefits = [
   {
     icon: <Briefcase size={40} className="text-primary mb-3" />,
@@ -135,7 +135,7 @@ const InternshipOpportunity = ({ isPreview = false }) => {
             <Col md={8}>
               <AnimatedSection className="text-center" index={0}>
                 <ZoomImage
-                  src={internImage}
+                  src={internImage1}
                   alt="Internship Program"
                   fluid
                   className="rounded-3 mb-4"
@@ -148,7 +148,7 @@ const InternshipOpportunity = ({ isPreview = false }) => {
                   Join Wyenfos Infotech’s internship program to gain hands-on experience in software development, design, and innovation.
                 </p>
                 <Button
-                  href="/internship/apply"
+                  href="future/internship"
                   variant="primary"
                   size="lg"
                   className="px-5 py-3 fw-semibold rounded-pill shadow-sm"

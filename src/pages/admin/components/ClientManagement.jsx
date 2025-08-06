@@ -190,7 +190,7 @@ const ClientManagement = ({ clients, setClients, fetchClients, API_URL }) => {
     <Row>
       <Col md={12}>
         <Button variant="primary" className="mb-3" onClick={handleShowModal}>Add Client</Button>
-        <h4>Clients</h4>
+        {/* <h4>Clients</h4> */}
         <Table striped bordered hover responsive>
           <thead>
             <tr>

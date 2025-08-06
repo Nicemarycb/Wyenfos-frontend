@@ -1,27 +1,40 @@
-/* Inherit color palette from AdminDashboard.css */
 :root {
-  --primary: #b79fde; /* Deep Purple */
-  --primary-dark: #aa88db; /* Darker Purple */
-  --primary-light: #8c7dbc; /* Lighter Purple */
-  --secondary: #64748b; /* Slate Gray */
-  --accent: #14b8a6; /* Teal */
-  --accent-dark: #0d9488; /* Darker Teal */
-  --danger: #f43f5e; /* Rose Red */
-  --danger-dark: #e11d48; /* Darker Red */
-  --success: #34d399; /* Emerald Green */
-  --success-dark: #10b981; /* Darker Green */
-  --warning: #f59e0b; /* Amber */
-  --background: #f1f5f9; /* Light Slate */
-  --card-bg: linear-gradient(145deg, #e0e7ff, #d1fae5); /* Matching gradient */
-  --text-primary: #1e293b;/* Dark Slate */
-  --text-secondary: #475569; /* Medium Slate */
-  --border: #d1d5db; /* Gray Border */
+  /* Core Primary Shades */
+  --primary:       #3b82f6; /* Bright Blue */
+  --primary-dark:  #1e40af; /* Navy Blue */
+  --primary-light: #bfdbfe; /* Soft Light Blue */
+
+  /* Accent Blues (Different tones) */
+  --accent:        #0ea5e9; /* Sky Blue */
+  --accent-dark:   #0369a1; /* Deep Sky Blue */
+  --secondary:     #60a5fa; /* Muted Blue */
+
+  /* Status Shades in Blue Tones */
+  --success:       #38bdf8; /* Light Blue (for success message) */
+  --success-dark:  #0284c7; /* Medium Deep Blue */
+  --danger: #4d7cff; /* Bold Blue (used instead of red for "error") */
+  --danger-dark: #425383; /* Very Dark Blue */
+  --warning:       #93c5fd; /* Pale Blue (subtle warning tone) */
+
+  /* Layout Backgrounds */
+  --background:    #f0f9ff; /* Very light bluish-white */
+  --card-bg:       linear-gradient(145deg, #dbeafe, #eff6ff); /* Light blue gradient */
+
+  /* Text & Borders */
+  --text-primary:   #0f172a; /* Blue-Black (dark navy) */
+  --text-secondary: #334155; /* Blue-Gray */
+  --border:         #cbd5e1; /* Cool Pale Blue-Grey */
+
+  /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
-  --gradient-primary: linear-gradient(135deg, #82759a, #735d94);
-  --gradient-accent: linear-gradient(135deg, #2dd4bf, #0d9488);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(90deg, #3b82f6, #60a5fa);
+  --gradient-accent:  linear-gradient(135deg, #93c5fd, #1e3a8a);
 }
+
 
 /* Navbar Container */
 .navbar {
@@ -234,22 +247,23 @@ ul.mb-0.ps-3 li::before {
 
 /* Button Styling */
 .btn-primary {
-  background: var(--gradient-primary);
-  border: none;
-  border-radius: 10px;
-  padding: 0.6rem 1.8rem;
-  font-weight: 600;
-  font-size: 1rem;
-  color: #fff;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(90deg, rgb(0, 123, 255), rgb(0, 212, 255)) !important; /* Use !important to ensure override */
+  border: none !important;
+  border-radius: 10px !important; /* Apply the border-radius from the image */
+  color: #fff !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  padding: 0.75rem 2rem !important;
+  /* Add any other specific styles from the image if needed */
+  overflow: hidden; /* From image */
+  position: relative; /* From image */
+  transition: transform 0.6s ease-in-out, scale 0.6s ease-in-out; /* From image, if you want this animation */
 }
 
+
 .btn-primary:hover {
-  background: var(--primary-dark);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-sm);
+  background: linear-gradient(90deg, rgb(0, 212, 255), rgb(0, 123, 255)) !important; /* Example hover effect: reverse gradient */
+  transform: translateY(-2px); /* Example: slight lift on hover */
 }
 
 .btn-primary:active {

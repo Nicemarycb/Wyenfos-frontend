@@ -108,9 +108,7 @@ const AboutSection = ({ isPreview = false }) => {
               <div className="text-center">
                 <Button
                   href="/about"
-                  variant="dark"
-                  size="lg"
-                  className="px-5 py-3 rounded-pill fw-semibold shadow-sm"
+                  className="button-cs"
                 >
                   Discover More
                 </Button>

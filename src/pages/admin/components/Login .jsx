@@ -38,19 +38,35 @@ const Login = () => {
     return () => clearTimeout(timer);
   }, [location, navigate]);
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   setError('');
+  //   setMessage('');
+  //   try {
+  //     await signInWithEmailAndPassword(auth, email, password);
+  //     const pendingLink = localStorage.getItem('pendingVerificationLink');
+  //     navigate(pendingLink || '/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection');
+  //     localStorage.removeItem('pendingVerificationLink');
+  //   } catch (err) {
+  //     setError('Invalid email or password');
+  //   }
+  // };
+
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setError('');
-    setMessage('');
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      const pendingLink = localStorage.getItem('pendingVerificationLink');
-      navigate(pendingLink || '/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection');
-      localStorage.removeItem('pendingVerificationLink');
-    } catch (err) {
-      setError('Invalid email or password');
-    }
-  };
+  e.preventDefault();
+  setError("");
+  setMessage("");
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    const pendingLink = localStorage.getItem("pendingVerificationLink");
+    // Redirect to the intended page (from state) or default to dashboard
+    const redirectTo = location.state?.from?.pathname || "/admin/x7kP9mQ2jL5vR8nT/adminpannel/x7kP9mQ2jL5vR8987/adminsection";
+    navigate(pendingLink || redirectTo);
+    localStorage.removeItem("pendingVerificationLink");
+  } catch (err) {
+    setError("Invalid email or password");
+  }
+};
 
   const handleChangeEmail = async (e) => {
     e.preventDefault();

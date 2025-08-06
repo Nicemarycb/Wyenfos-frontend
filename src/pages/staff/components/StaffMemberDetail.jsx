@@ -98,7 +98,7 @@ const StaffMemberDetail = () => {
                 <Col md={4} className="fw-bold">Blood Group:</Col>
                 <Col md={8}>{member.bloodGroup}</Col>
               </Row>
-               <Row className="mb-3">
+              <Row className="mb-3">
                 <Col md={4} className="fw-bold">Emergency Phone:</Col>
                 <Col md={8}>{member.emergencyPhone || "Not provided"}</Col>
               </Row>
@@ -152,7 +152,11 @@ const StaffMemberDetail = () => {
                 <Row className="mb-3">
                   <Col md={4} className="fw-bold">Video:</Col>
                   <Col md={8}>
-                    <a href={member.video} target="_blank" rel="noopener noreferrer">Watch Video</a>
+                    <video
+                      src={member.video}
+                      controls
+                      style={{ maxWidth: "100%", borderRadius: "0.5rem" }}
+                    />
                   </Col>
                 </Row>
               )}

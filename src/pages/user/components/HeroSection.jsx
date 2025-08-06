@@ -1,44 +1,42 @@
 import React from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import "./hero.css";
+
+import imgMain from "../../../assets/dd5d95c7d860a31bea8b52c8bb1259f1.jpg";
+import imgExtra1 from "../../../assets/firstp.jpg";
+import imgExtra2 from "../../../assets/1345c0ea27c5422c61bfd64f93fc8846.jpg";
 
 const HeroSection = () => {
-  const backgroundImage = require("../../../assets/img1.avif"); // Place your image in src/assets/hero.jpg
-
   return (
-    <section
-      className="d-flex align-items-center text-center text-white"
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-        position: "relative",
-      }}
-    >
-      {/* Overlay */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          height: "100%",
-          width: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.6)",
-          zIndex: 1,
-        }}
-      ></div>
+    <section className="hero-modern-section d-flex align-items-center">
+      <div className="bg-shapes">
+        <img src={imgExtra1} className="bg-shape shape1" alt="Decor 1" />
+        <img src={imgExtra2} className="bg-shape shape2" alt="Decor 2" />
+      </div>
 
-      {/* Content */}
-      <Container style={{ zIndex: 2 }}>
-        <h1 className="display-2 fw-bold mb-4">
-          Make a Wise Decision – Get Website And App Today!
-        </h1>
-        <p className="lead mb-4">
-          Empowering your business with cutting-edge digital solutions.
-        </p>
-        <Button variant="light" size="lg">
-          Get Started
-        </Button>
+      <Container>
+        <Row className="align-items-center">
+          <Col md={6} className="text-start">
+            <h1 className="hero-title mb-4">
+              Bring Your Ideas to Life <br />
+              with <span className="text-gradient">Next-Gen Solutions</span>
+            </h1>
+            <p className="lead mb-4 text-secondary">
+              We design and build stunning websites and mobile apps with full digital integration.
+            </p>
+            <Button
+              className="custom-cta"
+              href="/about"
+            >
+              Start Your Project
+            </Button>
+          </Col>
+          <Col md={6} className="text-center d-none d-md-block">
+            <div className="image-container">
+              <img src={imgMain} alt="Hero" className="main-hero-image" />
+            </div>
+          </Col>
+        </Row>
       </Container>
     </section>
   );
