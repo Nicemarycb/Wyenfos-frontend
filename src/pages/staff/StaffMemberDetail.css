@@ -1,29 +1,33 @@
 :root {
   /* Core Primary Shades */
-  --primary:       #3b82f6; /* Bright Blue */
-  --primary-dark:  #1e40af; /* Navy Blue */
+  --primary: #3b82f6; /* Bright Blue */
+  --primary-dark: #1e40af; /* Navy Blue */
   --primary-light: #bfdbfe; /* Soft Light Blue */
 
   /* Accent Blues (Different tones) */
-  --accent:        #0ea5e9; /* Sky Blue */
-  --accent-dark:   #0369a1; /* Deep Sky Blue */
-  --secondary:     #60a5fa; /* Muted Blue */
+  --accent: #0ea5e9; /* Sky Blue */
+  --accent-dark: #0369a1; /* Deep Sky Blue */
+  --secondary: #60a5fa; /* Muted Blue */
 
   /* Status Shades in Blue Tones */
-  --success:       #38bdf8; /* Light Blue (for success message) */
-  --success-dark:  #0284c7; /* Medium Deep Blue */
+  --success: #38bdf8; /* Light Blue (for success message) */
+  --success-dark: #0284c7; /* Medium Deep Blue */
   --danger: #4d7cff; /* Bold Blue (used instead of red for "error") */
   --danger-dark: #425383; /* Very Dark Blue */
-  --warning:       #93c5fd; /* Pale Blue (subtle warning tone) */
+  --warning: #93c5fd; /* Pale Blue (subtle warning tone) */
 
   /* Layout Backgrounds */
-  --background:    #f0f9ff; /* Very light bluish-white */
-  --card-bg:       linear-gradient(145deg, #dbeafe, #eff6ff); /* Light blue gradient */
+  --background: #f0f9ff; /* Very light bluish-white */
+  --card-bg: linear-gradient(
+    145deg,
+    #dbeafe,
+    #eff6ff
+  ); /* Light blue gradient */
 
   /* Text & Borders */
-  --text-primary:   #0f172a; /* Blue-Black (dark navy) */
+  --text-primary: #0f172a; /* Blue-Black (dark navy) */
   --text-secondary: #334155; /* Blue-Gray */
-  --border:         #cbd5e1; /* Cool Pale Blue-Grey */
+  --border: #cbd5e1; /* Cool Pale Blue-Grey */
 
   /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -32,9 +36,8 @@
 
   /* Gradients */
   --gradient-primary: linear-gradient(90deg, #3b82f6, #60a5fa);
-  --gradient-accent:  linear-gradient(135deg, #93c5fd, #1e3a8a);
+  --gradient-accent: linear-gradient(135deg, #93c5fd, #1e3a8a);
 }
-
 
 /* Navbar Container */
 .navbar {
@@ -53,14 +56,14 @@
   padding: 0.6rem 1.8rem;
   font-weight: 600;
   font-size: 1rem;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
 .admin-dashboard-button::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -90,7 +93,7 @@
   padding: 0.6rem 1.8rem;
   font-weight: 600;
   font-size: 1rem;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   color: #fff;
   transition: all 0.3s ease;
   position: relative;
@@ -113,7 +116,7 @@
 }
 
 .container.py-5::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -164,7 +167,7 @@
   color: var(--text-primary);
   font-size: 2rem;
   font-weight: 500;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.02em;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
@@ -173,8 +176,14 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Status Text */
@@ -238,7 +247,7 @@ ul.mb-0.ps-3 li {
 }
 
 ul.mb-0.ps-3 li::before {
-  content: '•';
+  content: "•";
   position: absolute;
   left: 0;
   color: var(--primary);
@@ -247,7 +256,11 @@ ul.mb-0.ps-3 li::before {
 
 /* Button Styling */
 .btn-primary {
-  background: linear-gradient(90deg, rgb(0, 123, 255), rgb(0, 212, 255)) !important; /* Use !important to ensure override */
+  background: linear-gradient(
+    90deg,
+    rgb(0, 123, 255),
+    rgb(0, 212, 255)
+  ) !important; /* Use !important to ensure override */
   border: none !important;
   border-radius: 10px !important; /* Apply the border-radius from the image */
   color: #fff !important;
@@ -260,9 +273,12 @@ ul.mb-0.ps-3 li::before {
   transition: transform 0.6s ease-in-out, scale 0.6s ease-in-out; /* From image, if you want this animation */
 }
 
-
 .btn-primary:hover {
-  background: linear-gradient(90deg, rgb(0, 212, 255), rgb(0, 123, 255)) !important; /* Example hover effect: reverse gradient */
+  background: linear-gradient(
+    90deg,
+    rgb(0, 212, 255),
+    rgb(0, 123, 255)
+  ) !important; /* Example hover effect: reverse gradient */
   transform: translateY(-2px); /* Example: slight lift on hover */
 }
 
@@ -271,14 +287,20 @@ ul.mb-0.ps-3 li::before {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Link Styling for Video */
 a[href^="http"] {
-  color: var(--primary);
+  /* color: var(--primary); */
   font-weight: 600;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -309,10 +331,11 @@ img[alt*="QR Code"]:hover {
 }
 
 /* Text for Loading/Not Found */
-h3.mt-3, h3 {
+h3.mt-3,
+h3 {
   color: var(--text-primary);
   font-weight: 700;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.8rem;
   animation: fadeIn 0.5s ease-out;
 }
@@ -373,7 +396,8 @@ h3.mt-3, h3 {
     font-size: 0.85rem;
   }
 
-  h3.mt-3, h3 {
+  h3.mt-3,
+  h3 {
     font-size: 1.5rem;
   }
 }

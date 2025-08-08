@@ -18,7 +18,11 @@
 
   /* Layout Backgrounds */
   --background: #f0f9ff; /* Very light bluish-white */
-  --card-bg: linear-gradient(145deg, #dbeafe, #eff6ff); /* Light blue gradient */
+  --card-bg: linear-gradient(
+    145deg,
+    #dbeafe,
+    #eff6ff
+  ); /* Light blue gradient */
 
   /* Text & Borders */
   --text-primary: #0f172a; /* Blue-Black (dark navy) */
@@ -140,7 +144,10 @@
 }
 
 .admin-page-layout.sidebar-collapsed .logo-text,
-.admin-page-layout.sidebar-collapsed .sidebar-nav .nav-link span:not(.icon-wrapper),
+.admin-page-layout.sidebar-collapsed
+  .sidebar-nav
+  .nav-link
+  span:not(.icon-wrapper),
 .admin-page-layout.sidebar-collapsed .logout-link span:not(.icon-wrapper) {
   display: none;
 }
@@ -193,7 +200,8 @@
   justify-content: center;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out,
+    background-color 0.2s ease;
 }
 
 .sidebar-toggle-btn:hover {
@@ -204,7 +212,7 @@
 
 .dashboard-title {
   color: var(--text-primary);
-  font-size: 2.0rem;
+  font-size: 2rem;
   font-weight: 600;
   letter-spacing: -0.03em;
   background: var(--gradient-primary);
@@ -281,7 +289,7 @@
 }
 
 .admin-dashboard-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -306,7 +314,7 @@
   color: var(--text-primary);
   font-size: 2.8rem;
   font-weight: 800;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.03em;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
@@ -316,8 +324,14 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .button-group {
@@ -347,7 +361,7 @@
 }
 
 .staff-panel-button::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -442,7 +456,7 @@
 }
 
 .custom-tabs .nav-link.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -3px;
   left: 50%;
@@ -462,8 +476,14 @@
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Table Styling */
@@ -504,19 +524,23 @@
 
 /* Button Styling */
 .btn-primary {
-    background: linear-gradient(90deg, rgb(0, 123, 255), rgb(0, 212, 255));
-    border: none;
-    border-radius: 10px; /* This is from StaffMember.all.css */
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 600;
-    overflow: hidden;
-    padding: 0.75rem 2rem;
-    position: relative;
-    transition: transform 0.6s ease-in-out, scale 0.6s ease-in-out; /* This seems to be custom animation from elsewhere */
+  background: linear-gradient(90deg, rgb(0, 123, 255), rgb(0, 212, 255));
+  border: none;
+  border-radius: 10px; /* This is from StaffMember.all.css */
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  overflow: hidden;
+  padding: 0.75rem 2rem;
+  position: relative;
+  transition: transform 0.6s ease-in-out, scale 0.6s ease-in-out; /* This seems to be custom animation from elsewhere */
 }
 .btn-primary:hover {
-  background: linear-gradient(90deg, rgb(0, 212, 255), rgb(0, 123, 255)) !important; /* Example hover effect: reverse gradient */
+  background: linear-gradient(
+    90deg,
+    rgb(0, 212, 255),
+    rgb(0, 123, 255)
+  ) !important; /* Example hover effect: reverse gradient */
   transform: translateY(-2px); /* Example: slight lift on hover */
 }
 
@@ -685,12 +709,14 @@
 }
 
 /* Image and Media Styling */
-img, video {
+img,
+video {
   border-radius: 8px;
   transition: transform 0.3s ease;
 }
 
-img:hover, video:hover {
+img:hover,
+video:hover {
   transform: scale(1.05);
 }
 
@@ -773,9 +799,15 @@ img:hover, video:hover {
 
 /* Animation for Buttons */
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .btn-primary:active,

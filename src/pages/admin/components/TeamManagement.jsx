@@ -180,12 +180,10 @@
 //     }
 //   };
 
-
 //    const validatePhoneNumber = (phone) => {
 //     const phoneRegex = /^\+?[1-9]\d{1,14}$/;
 //     return phone === "" || phoneRegex.test(phone);
 //   };
-
 
 //   const handleAddOrUpdateTeamMember = async (e) => {
 //     e.preventDefault();
@@ -534,7 +532,7 @@
 //                     }
 //                   />
 //                 </Form.Group>
-               
+
 //               </Col>
 //             </Row>
 //           </Form>
@@ -630,7 +628,16 @@
 //   );
 // };
 import React, { useState } from "react";
-import { Row, Col, Form, Button, Table, Image, Modal, Spinner } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Form,
+  Button,
+  Table,
+  Image,
+  Modal,
+  Spinner,
+} from "react-bootstrap";
 import { auth } from "../../../firebase";
 
 const AlertModal = ({ show, onHide, title, message, variant, onConfirm }) => {
@@ -640,7 +647,9 @@ const AlertModal = ({ show, onHide, title, message, variant, onConfirm }) => {
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className={variant === "success" ? "text-success" : "text-danger"}>{message}</p>
+        <p className={variant === "success" ? "text-success" : "text-danger"}>
+          {message}
+        </p>
       </Modal.Body>
       <Modal.Footer>
         {onConfirm ? (
@@ -765,10 +774,21 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
   };
 
   const handleCloseAlertModal = () => {
-    setAlertModal({ show: false, title: "", message: "", variant: "success", onConfirm: null });
+    setAlertModal({
+      show: false,
+      title: "",
+      message: "",
+      variant: "success",
+      onConfirm: null,
+    });
   };
 
-  const showAlertModal = (title, message, variant = "success", onConfirm = null) => {
+  const showAlertModal = (
+    title,
+    message,
+    variant = "success",
+    onConfirm = null
+  ) => {
     setAlertModal({ show: true, title, message, variant, onConfirm });
   };
 
@@ -782,7 +802,9 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
       if (!validTypes.includes(selectedFile.type)) {
         showAlertModal(
           "Invalid File",
-          `Please upload a ${isImage ? "image" : "video"} file (e.g., ${isImage ? "JPEG, PNG" : "MP4, WebM"}).`,
+          `Please upload a ${isImage ? "image" : "video"} file (e.g., ${
+            isImage ? "JPEG, PNG" : "MP4, WebM"
+          }).`,
           "danger"
         );
         return;
@@ -791,7 +813,9 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
       if (selectedFile.size > maxSize) {
         showAlertModal(
           "File Too Large",
-          `${isImage ? "Image" : "Video"} size must be less than ${isImage ? "5MB" : "50MB"}.`,
+          `${isImage ? "Image" : "Video"} size must be less than ${
+            isImage ? "5MB" : "50MB"
+          }.`,
           "danger"
         );
         return;
@@ -818,32 +842,69 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
   const handleAddOrUpdateTeamMember = async (e) => {
     e.preventDefault();
     if (!auth.currentUser) {
-      showAlertModal("Authentication Error", "Please log in to add or update a team member.");
+      showAlertModal(
+        "Authentication Error",
+        "Please log in to add or update a team member."
+      );
       return;
     }
 
-    const { name, role, employeeId, joiningDate, bloodGroup, status, resignationReason, terminationReason, emergencyPhone } = newTeamMember;
-    if (!name || !role || !employeeId || !joiningDate || !bloodGroup || !status) {
-      showAlertModal("Missing Fields", "Please fill in all required fields: Name, Role, Employee ID, Joining Date, Blood Group, Status");
+    const {
+      name,
+      role,
+      employeeId,
+      joiningDate,
+      bloodGroup,
+      status,
+      resignationReason,
+      terminationReason,
+      emergencyPhone,
+    } = newTeamMember;
+    if (
+      !name ||
+      !role ||
+      !employeeId ||
+      !joiningDate ||
+      !bloodGroup ||
+      !status
+    ) {
+      showAlertModal(
+        "Missing Fields",
+        "Please fill in all required fields: Name, Role, Employee ID, Joining Date, Blood Group, Status"
+      );
       return;
     }
     if (status === "Resigned" && !resignationReason) {
-      showAlertModal("Missing Reason", "Please provide a resignation reason for resigned status.");
+      showAlertModal(
+        "Missing Reason",
+        "Please provide a resignation reason for resigned status."
+      );
       return;
     }
     if (status === "Terminated" && !terminationReason) {
-      showAlertModal("Missing Reason", "Please provide a termination reason for terminated status.");
+      showAlertModal(
+        "Missing Reason",
+        "Please provide a termination reason for terminated status."
+      );
       return;
     }
     if (!validatePhoneNumber(emergencyPhone)) {
-      showAlertModal("Invalid Phone Number", "Please enter a valid emergency phone number (e.g., +1234567890) or leave it blank.");
+      showAlertModal(
+        "Invalid Phone Number",
+        "Please enter a valid emergency phone number (e.g., +1234567890) or leave it blank."
+      );
       return;
     }
 
     if (!editingTeamMember) {
-      const isDuplicate = team.some(member => member.employeeId === employeeId);
+      const isDuplicate = team.some(
+        (member) => member.employeeId === employeeId
+      );
       if (isDuplicate) {
-        showAlertModal("Duplicate Employee ID", "A team member with this Employee ID already exists. Please use a unique Employee ID.");
+        showAlertModal(
+          "Duplicate Employee ID",
+          "A team member with this Employee ID already exists. Please use a unique Employee ID."
+        );
         return;
       }
     }
@@ -862,12 +923,18 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
         },
         body: JSON.stringify({
           ...newTeamMember,
-          skills: newTeamMember.skills ? newTeamMember.skills.split(",").map((s) => s.trim()) : [],
+          skills: newTeamMember.skills
+            ? newTeamMember.skills.split(",").map((s) => s.trim())
+            : [],
         }),
       });
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.error || "Unknown error"}`);
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Message: ${
+            errorData.error || "Unknown error"
+          }`
+        );
       }
       await response.json();
       fetchTeam();
@@ -878,10 +945,15 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
         "success"
       );
     } catch (error) {
-      console.error(`Failed to ${editingTeamMember ? "update" : "add"} team member:`, error.message);
+      console.error(
+        `Failed to ${editingTeamMember ? "update" : "add"} team member:`,
+        error.message
+      );
       showAlertModal(
         "Error",
-        `Failed to ${editingTeamMember ? "update" : "add"} team member: ${error.message}`,
+        `Failed to ${editingTeamMember ? "update" : "add"} team member: ${
+          error.message
+        }`,
         "danger"
       );
     }
@@ -889,7 +961,11 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
 
   const handleDeleteTeamMember = async (id) => {
     if (!auth.currentUser) {
-      showAlertModal("Authentication Error", "Please log in to delete a team member.", "danger");
+      showAlertModal(
+        "Authentication Error",
+        "Please log in to delete a team member.",
+        "danger"
+      );
       return;
     }
     showAlertModal(
@@ -907,13 +983,25 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
           });
           if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.error || "Unknown error"}`);
+            throw new Error(
+              `HTTP error! Status: ${response.status}, Message: ${
+                errorData.error || "Unknown error"
+              }`
+            );
           }
           fetchTeam();
-          showAlertModal("Success", "Team member deleted successfully!", "success");
+          showAlertModal(
+            "Success",
+            "Team member deleted successfully!",
+            "success"
+          );
         } catch (error) {
           console.error("Failed to delete team member:", error.message);
-          showAlertModal("Error", `Failed to delete team member: ${error.message}`, "danger");
+          showAlertModal(
+            "Error",
+            `Failed to delete team member: ${error.message}`,
+            "danger"
+          );
         }
         handleCloseAlertModal();
       }
@@ -966,18 +1054,30 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
     };
 
     try {
-      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+      if (
+        navigator.share &&
+        navigator.canShare &&
+        navigator.canShare(shareData)
+      ) {
         await navigator.share(shareData);
         // showAlertModal("Success", "QR code shared successfully!", "success");
       } else {
         await navigator.clipboard.writeText(qrCode);
-        showAlertModal("Success", "QR code URL copied to clipboard!", "success");
+        showAlertModal(
+          "Success",
+          "QR code URL copied to clipboard!",
+          "success"
+        );
       }
     } catch (error) {
       if (error.name === "AbortError") {
       } else {
         console.error("Failed to share QR code:", error.message);
-        showAlertModal("Error", `Failed to share QR code: ${error.message}`, "danger");
+        showAlertModal(
+          "Error",
+          `Failed to share QR code: ${error.message}`,
+          "danger"
+        );
       }
     }
   };
@@ -985,14 +1085,20 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
   return (
     <Row>
       <Col xs={12}>
-        <Button variant="primary" className="mb-3" onClick={() => handleShowModal()}>
+        <Button
+          variant="primary"
+          className="mb-3"
+          onClick={() => handleShowModal()}
+        >
           Add Staff Member
         </Button>
       </Col>
 
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>{editingTeamMember ? "Edit Staff Member" : "Add Staff Member"}</Modal.Title>
+          <Modal.Title>
+            {editingTeamMember ? "Edit Staff Member" : "Add Staff Member"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleAddOrUpdateTeamMember}>
@@ -1004,7 +1110,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     type="text"
                     value={newTeamMember.name}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, name: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        name: e.target.value,
+                      })
                     }
                     required
                   />
@@ -1015,7 +1124,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     type="text"
                     value={newTeamMember.role}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, role: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        role: e.target.value,
+                      })
                     }
                     required
                   />
@@ -1026,7 +1138,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     type="text"
                     value={newTeamMember.employeeId}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, employeeId: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        employeeId: e.target.value,
+                      })
                     }
                     required
                   />
@@ -1037,7 +1152,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     type="date"
                     value={newTeamMember.joiningDate}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, joiningDate: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        joiningDate: e.target.value,
+                      })
                     }
                     required
                   />
@@ -1048,7 +1166,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     type="text"
                     value={newTeamMember.bloodGroup}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, bloodGroup: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        bloodGroup: e.target.value,
+                      })
                     }
                     required
                   />
@@ -1059,13 +1180,20 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     type="tel"
                     value={newTeamMember.emergencyPhone}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, emergencyPhone: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        emergencyPhone: e.target.value,
+                      })
                     }
                     placeholder="+1234567890"
-                    isInvalid={newTeamMember.emergencyPhone && !validatePhoneNumber(newTeamMember.emergencyPhone)}
+                    isInvalid={
+                      newTeamMember.emergencyPhone &&
+                      !validatePhoneNumber(newTeamMember.emergencyPhone)
+                    }
                   />
                   <Form.Control.Feedback type="invalid">
-                    Please enter a valid phone number (e.g., +1234567890) or leave blank.
+                    Please enter a valid phone number (e.g., +1234567890) or
+                    leave blank.
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -1073,7 +1201,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                   <Form.Select
                     value={newTeamMember.status}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, status: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        status: e.target.value,
+                      })
                     }
                     required
                   >
@@ -1089,7 +1220,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                       as="textarea"
                       value={newTeamMember.resignationReason}
                       onChange={(e) =>
-                        setNewTeamMember({ ...newTeamMember, resignationReason: e.target.value })
+                        setNewTeamMember({
+                          ...newTeamMember,
+                          resignationReason: e.target.value,
+                        })
                       }
                       required
                     />
@@ -1102,7 +1236,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                       as="textarea"
                       value={newTeamMember.terminationReason}
                       onChange={(e) =>
-                        setNewTeamMember({ ...newTeamMember, terminationReason: e.target.value })
+                        setNewTeamMember({
+                          ...newTeamMember,
+                          terminationReason: e.target.value,
+                        })
                       }
                       required
                     />
@@ -1146,7 +1283,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     as="textarea"
                     value={newTeamMember.shortBio}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, shortBio: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        shortBio: e.target.value,
+                      })
                     }
                   />
                 </Form.Group>
@@ -1156,7 +1296,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     as="textarea"
                     value={newTeamMember.fullBio}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, fullBio: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        fullBio: e.target.value,
+                      })
                     }
                   />
                 </Form.Group>
@@ -1166,7 +1309,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     type="text"
                     value={newTeamMember.skills}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, skills: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        skills: e.target.value,
+                      })
                     }
                   />
                 </Form.Group>
@@ -1189,7 +1335,10 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     as="textarea"
                     value={newTeamMember.quotes}
                     onChange={(e) =>
-                      setNewTeamMember({ ...newTeamMember, quotes: e.target.value })
+                      setNewTeamMember({
+                        ...newTeamMember,
+                        quotes: e.target.value,
+                      })
                     }
                   />
                 </Form.Group>
@@ -1201,7 +1350,11 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button type="submit" variant="primary" onClick={handleAddOrUpdateTeamMember}>
+          <Button
+            type="submit"
+            variant="primary"
+            onClick={handleAddOrUpdateTeamMember}
+          >
             {editingTeamMember ? "Update Member" : "Add Member"}
           </Button>
         </Modal.Footer>
@@ -1270,12 +1423,20 @@ const TeamManagement = ({ team, setTeam, fetchTeam, API_URL }) => {
                     <Button
                       variant="danger"
                       size="sm"
-                      onClick={() => handleShareQRCode(member.qrCode, member.name)}
+                      onClick={() =>
+                        handleShareQRCode(member.qrCode, member.name)
+                      }
                       disabled={!member.qrCode || isSharing}
                     >
                       {isSharing ? (
                         <>
-                          <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                          />
                           <span className="visually-hidden">Sharing...</span>
                         </>
                       ) : (
